@@ -100,12 +100,6 @@ public class FormuleOfficiel {
                         * (bonus + rapport) * (nvGrpMonster) * (groupXp / sizeGroupe))
                         * Config.getInstance().RATE_XP * World.world.getConquestBonus(fighter.getPlayer()));
 
-                if(player.getAccount().isSubscribeWithoutCondition()) {
-                    long newTotal = (long) (total * 1.4);
-                    player.sendMessage("Vous avez gagné " + (newTotal - total) + " d'expérience supplémentaire grâce à votre bonus d'abonnement.");
-                    return newTotal;
-                }
-
                 return total;
             }
         } else if (object instanceof Collector) {

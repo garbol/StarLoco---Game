@@ -11,7 +11,7 @@ public class Config {
     public static int config = 0;
 
     public final long startTime = System.currentTimeMillis();
-    public boolean BONUS_SUBSCRIBER = false, HALLOWEEN = false, NOEL = false, HEROIC = false, TEAM_MATCH = false, DEATH_MATCH = false, AUTO_EVENT = false;
+    public boolean HALLOWEEN = false, NOEL = false, HEROIC = false, TEAM_MATCH = false, DEATH_MATCH = false, AUTO_EVENT = false;
     public boolean AUTO_REBOOT = true, ALL_ZAAP = true, ALL_EMOTE = false, ONLY_LOCAL = false, ENCRYPT_PACKET = true, RESET_LIMIT = false;
     public short TIME_PER_EVENT = 60;
 
@@ -58,7 +58,6 @@ public class Config {
                 Main.passDB = "";
                 Main.portDB = "3306";
                 Main.Ip = "127.0.0.1";
-                this.BONUS_SUBSCRIBER = true;
                 this.NAME = "Jiva";
                 this.url = "nashira";
                 this.AUTO_REBOOT = true;
@@ -81,38 +80,12 @@ public class Config {
                 Main.passDB = "elements02";
                 Main.portDB = "3306";
                 Main.Ip = "176.150.39.220";
-                this.BONUS_SUBSCRIBER = true;
                 this.NAME = "Test";
                 this.url = "www.elements-games.eu";
                 this.AUTO_REBOOT = true;
                 this.RESET_LIMIT = true;
                 break;
 
-            case 2://Pyroxia
-                //Exchange
-                Main.exchangePort = 666;
-                Main.exchangeIp = "127.0.0.1";
-                //Bdd
-                Main.loginHostDB = "127.0.0.1";
-                Main.loginNameDB = "login";
-                Main.loginUserDB = "pyroxia";
-                Main.loginPassDB = "Ppcpbn74c2";
-                Main.loginPortDB = "3306";
-                //Game
-                Main.gamePort = 5444;
-                Main.hostDB = "127.0.0.1";
-                Main.nameDB = "game_pyroxia";
-                Main.userDB = "pyroxia";
-                Main.passDB = "Ppcpbn74c2";
-                Main.portDB = "3306";
-                Main.Ip = "188.165.120.243";
-                this.BONUS_SUBSCRIBER = true;
-                this.url = "www.elements-games.eu";
-                this.NAME = "Pyroxia";
-                this.AUTO_REBOOT = true;
-                this.AUTO_EVENT = true;
-                this.RESET_LIMIT = true;
-                break;
         }
     }
 
