@@ -1,0 +1,69 @@
+Pas de change-log antérieur à cette date.
+
+29/01/2017
+- Correction de la stats Ligne de vue désactiver.
+- Correction de l'affichage de l'image de la/le marier (liste d'amis).
+- Lorsque que l'on est déjà marier et qu'on essaye de se re-marier, nous ne sommes plus bloqué.
+- Correction d'un problème d'affichage de l'objet FM en double.
+- Correction d'un problème sur le Craft/FM lorsqu'on stopper une série de craft.
+- Suppression du double message lorsqu'on terminé un craft/fm.
+
+30/01/2017
+- Correction du labyrinthe du minotoror.
+- Correction du challenge 'Mains propre'.
+- Correction du challenge 'Nomade'.
+- Correction du challenge 'Ni pious/pioutes ni soumis/soumise'.
+
+#Git push at 30/01/2017 - 21h40
+
+- Correction de tout les noms de percepteur pouvant être afficher quelques part.
+
+04/02/2017
+
+- Correction de la condition CM (prend en compte le stuff désormais).
+- Correction de la couleur de monture 73 (Turquoise-orchidée) donnant des % de dommages au lieu de la prospection.
+- Correction des familliers dévoreurs d'âmes (ne posséder plus de stats).
+- Correction de toutes les pierres d'âmes parfaites.
+- Correction du placement d'objet d'élevage qui faisait perdre l'objet si on le poser sur une case déjà prise par un objet.
+- Correction de la jauge du temps restant dans le panel de guilde lors d'une attaque de percepteur.
+- Correction de l'effet (84) vol de PA, ils sont désormais rendu et ajouté correctement (aux cibles et au lanceur).
+
+05/02/2017
+
+- Ajout de la sauvegarde des groupes de monstre non fixe.
+- Ajout d'une vérification multi-ip en attaque et défense de percepteur.
+- Correction de l'IA du Sphinter Cell.
+- Correction de la rune Do dans le calcul de la FM.
+
+09/02/2017
+
+- Correction de la couleur de glyphe pair et impair
+- Correction de l'affichage de l'icone spectateur désactivé lors de la préparation d'un combat
+- Correction de l'icone de combat percepteur dans la liste des combats en cours.
+
+10/02/2017
+
+- Ajout du craft sécurisé pour la Forgemagie.
+- Correction de l'affichage de l'invitation en craft lorsque l'on change d'outils sur la même map.
+- Blocage des étoiles des groupes de monstre à 150 unités (10 étoiles (oranges)).
+
+11/02/2017
+
+- Correction de l'exclusion des spectateurs pendant un combat de percepteur lorsque l'attaquant meurt en tombe.
+
+20/02/2017
+
+- Correction de deux failles de sécurité sur le serveur de connexion.
+- Correction de plusieurs familliers (stats maximum).
+- Correction du craft sécurisé, lorsque les deux joueurs complète leurs ressources la recette n'échoue plus.
+- Correction du jet d'objet au sol, il est applicable sur toutes les tailles des cartes du jeu.
+- Ajout des potions d'oubli de sort et de statistique d'une guilde.
+========================================================================================================================
+
+A FAIRE :
+- ia du percepteur
+- join spec, nique la barre des tours
+
+
+A TESTER PROCHAINE MAJ :
+- Rune Do, difficulté à passer
