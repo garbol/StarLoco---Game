@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="game" />
         <module name="login" />
+        <module name="StarLoco---Game" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="game" target="1.8" />
       <module name="login" target="1.8" />
+      <module name="StarLoco---Game" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
