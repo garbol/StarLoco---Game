@@ -64,7 +64,7 @@ public class StaticsDatabase {
             logger.trace("Reading database config");
 
             HikariConfig config = new HikariConfig();
-            config.setDataSourceClassName("org.mariadb.jdbc.Driver");
+            config.setDataSourceClassName("org.mariadb.jdbc.MySQLDataSource");
             config.addDataSourceProperty("serverName", Main.loginHostDB);
             config.addDataSourceProperty("port", Main.loginPortDB);
             config.addDataSourceProperty("databaseName", Main.loginNameDB);

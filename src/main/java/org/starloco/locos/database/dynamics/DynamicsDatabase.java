@@ -120,7 +120,7 @@ public class DynamicsDatabase {
             logger.trace("Reading database config");
 
             HikariConfig config = new HikariConfig();
-            config.setDataSourceClassName("org.mariadb.jdbc.Driver");
+            config.setDataSourceClassName("org.mariadb.jdbc.MySQLDataSource");
             config.addDataSourceProperty("serverName", Main.hostDB);
             config.addDataSourceProperty("port", Main.portDB);
             config.addDataSourceProperty("databaseName", Main.nameDB);
