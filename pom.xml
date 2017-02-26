@@ -66,6 +66,13 @@
 
     <dependencies>
 
+        <!-- https://mvnrepository.com/artifact/com.natpryce/konfig -->
+        <dependency>
+            <groupId>com.natpryce</groupId>
+            <artifactId>konfig</artifactId>
+            <version>1.4.2.0</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
