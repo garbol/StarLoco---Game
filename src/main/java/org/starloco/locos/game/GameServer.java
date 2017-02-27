@@ -26,7 +26,7 @@ public class GameServer {
     private IoAcceptor acceptor;
 
     public GameServer() {
-        Main.gameServer = this;
+        Main.INSTANCE.setGameServer(this);
         this.acceptor = new NioSocketAcceptor();
         this.acceptor.getFilterChain().addLast("codec", new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("UTF8"), LineDelimiter.NUL, new LineDelimiter("\n\0"))));
         this.acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 60 * 10 /*10 Minutes*/);
@@ -37,14 +37,14 @@ public class GameServer {
             return;
 
         try {
-            this.acceptor.bind(new InetSocketAddress(Main.gamePort));
+            this.acceptor.bind(new InetSocketAddress(Main.INSTANCE.getGamePort()));
         } catch (IOException e) {
-            Main.logger.error("The address '" + Main.gamePort + "' is already in use..");
+            Main.INSTANCE.getLogger().error("The address '" + Main.INSTANCE.getGamePort() + "' is already in use..");
             this.close();
             try { Thread.sleep(3000); } catch(Exception ignored) {}
             this.initialize();
         } finally {
-            Main.logger.info("The game server started on address : " + Main.Ip + ":" + Main.gamePort);
+            Main.INSTANCE.getLogger().info("The game server started on address : " + Main.INSTANCE.getIp() + ":" + Main.INSTANCE.getGamePort());
         }
     }
 
@@ -55,7 +55,7 @@ public class GameServer {
         this.acceptor.getManagedSessions().values().stream().filter(session -> session.isConnected() || !session.isClosing()).forEach(session -> session.close(true));
         this.acceptor.dispose();
         this.acceptor.unbind();
-        Main.logger.error("The game server was stopped.");
+        Main.INSTANCE.getLogger().error("The game server was stopped.");
     }
 
     public ArrayList<GameClient> getClients() {
@@ -72,8 +72,8 @@ public class GameServer {
     }
 
     public static void setState(int state) {
-        if (Main.exchangeClient != null && Main.exchangeClient.getConnectFuture() != null && !Main.exchangeClient.getConnectFuture().isCanceled() && Main.exchangeClient.getConnectFuture().isConnected())
-            Main.exchangeClient.send("SS" + state);
+        if (Main.INSTANCE.getExchangeClient() != null && Main.INSTANCE.getExchangeClient().getConnectFuture() != null && !Main.INSTANCE.getExchangeClient().getConnectFuture().isCanceled() && Main.INSTANCE.getExchangeClient().getConnectFuture().isConnected())
+            Main.INSTANCE.getExchangeClient().send("SS" + state);
     }
 
     public Account getWaitingAccount(int id) {

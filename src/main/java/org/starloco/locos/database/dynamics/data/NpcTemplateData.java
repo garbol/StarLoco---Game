@@ -73,7 +73,7 @@ public class NpcTemplateData extends AbstractDAO<NpcTemplate> {
             }
         } catch (SQLException e) {
             super.sendError("Npc_templateData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }
@@ -99,7 +99,7 @@ public class NpcTemplateData extends AbstractDAO<NpcTemplate> {
             }
         } catch (Exception e) {
             super.sendError("Npc_templateData loadQuest", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }

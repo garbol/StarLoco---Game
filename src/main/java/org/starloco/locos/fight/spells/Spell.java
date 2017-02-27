@@ -198,7 +198,7 @@ public class Spell {
                     effets.add(new SpellEffect(id, args, spellID, level));
                 } catch (Exception f) {
                     f.printStackTrace();
-                    Main.stop("parseEffect spell");
+                    Main.INSTANCE.stop("parseEffect spell");
                 }
             }
             return effets;

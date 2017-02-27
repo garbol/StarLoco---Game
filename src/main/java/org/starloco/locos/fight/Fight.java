@@ -1081,7 +1081,7 @@ public class Fight {
         if (this.getType() == Constant.FIGHT_TYPE_PVM) {
             if (this.getMobGroup().isFix() && isCheckTimer() && this.getMapOld().getId() != 6826 && this.getMapOld().getId() != 10332 && this.getMapOld().getId() != 7388)
                 this.getMapOld().spawnAfterTimeGroupFix(this.getMobGroup().getCellId());// Respawn d'un groupe fix
-            if(!Config.getInstance().HEROIC)
+            if(!Config.INSTANCE.getHEROIC)
                 if (!this.getMobGroup().isFix() && this.isCheckTimer())
                     this.getMapOld().spawnAfterTimeGroup();// Respawn d'un groupe
         }
@@ -2784,7 +2784,7 @@ public class Fight {
     }
 
     public void onFighterDie(Fighter target, Fighter caster) {
-        if(Config.getInstance().HEROIC) {
+        if(Config.INSTANCE.getHEROIC) {
             Player player = caster.getPlayer(), deadPlayer = target.getPlayer();
 
             if(deadPlayer != null) {
@@ -3020,7 +3020,7 @@ public class Fight {
         }
         while ((cell == null || !cell.getFighters().isEmpty()) && limit < 80);
         if (limit == 80) {
-            if (Main.modDebug)
+            if (Main.INSTANCE.getModDebug())
             return null;
         }
         return cell;
@@ -3709,7 +3709,7 @@ public class Fight {
 
             if (player.isOnline())
                 SocketManager.GAME_SEND_Im_PACKET(player, "034;" + loose);
-            if(Config.getInstance().HEROIC) {
+            if(Config.INSTANCE.getHEROIC) {
                 if(fighter.killedBy != null)
                     player.die(fighter.killedBy.first, fighter.killedBy.second);
             } else {
@@ -4211,7 +4211,7 @@ public class Fight {
             Map<Player, String> list = null;
             ArrayList<GameObject> objects = null;
 
-            if(Config.getInstance().HEROIC) {
+            if(Config.INSTANCE.getHEROIC) {
                 switch(this.getType()) {
                     case Constant.FIGHT_TYPE_AGRESSION:
                         final ArrayList<GameObject> objects1 = new ArrayList<>();
@@ -4329,7 +4329,7 @@ public class Fight {
 
 
                             final double jet = Double.parseDouble(formatter.format(Math.random() * 100).replace(',', '.')),
-                                    chance = Double.parseDouble(formatter.format(drop.getLocalPercent() * prospecting * World.world.getConquestBonus(player) * challengeFactor * starFactor * Config.getInstance().RATE_DROP).replace(',', '.'));
+                                    chance = Double.parseDouble(formatter.format(drop.getLocalPercent() * prospecting * World.world.getConquestBonus(player) * challengeFactor * starFactor * Config.INSTANCE.getRATE_DROP).replace(',', '.'));
                             boolean ok = false;
 
                             switch (drop.getAction()) {
@@ -4609,7 +4609,7 @@ public class Fight {
                                 }
                             }
 
-                            if (Config.getInstance().HALLOWEEN) {
+                            if (Config.INSTANCE.getHALLOWEEN) {
                                 if ((bouftou > 0 || tofu > 0) && !player.hasEquiped(976)) {
                                     if (bouftou > tofu) {
                                         drops += (drops.length() > 0 ? "," : "") + "8169~1";
@@ -4694,7 +4694,7 @@ public class Fight {
 
                         if (this.getType() == Constant.FIGHT_TYPE_AGRESSION) {
                             if (getInit1().getPlayer().get_align() != 0 && getInit0().getPlayer().get_align() != 0) {
-                                if (getInit1().getPlayer().getAccount().getCurrentIp().compareTo(getInit0().getPlayer().getAccount().getCurrentIp()) != 0 || Main.allowMulePvp)
+                                if (getInit1().getPlayer().getAccount().getCurrentIp().compareTo(getInit0().getPlayer().getAccount().getCurrentIp()) != 0 || Main.INSTANCE.getAllowMulePvp())
                                     winH = Formulas.calculHonorWin(winners, loosers, i);
                                 if (player.getDeshonor() > 0)
                                     winD = -1;
@@ -4723,7 +4723,7 @@ public class Fight {
                         temporary.append(winD);
                         temporary.append(";");
                         temporary.append(stalk ? "10275~" + quantity : "");
-                        if(Config.getInstance().HEROIC && list != null) {
+                        if(Config.INSTANCE.getHEROIC && list != null) {
                             String value;
                             if((value = list.get(player)) != null)
                                 if(!value.isEmpty())
@@ -4818,7 +4818,7 @@ public class Fight {
                     int winD = 0;
                     if (this.getType() == Constant.FIGHT_TYPE_AGRESSION) {
                         if (getInit1().getPlayer().get_align() != 0 && getInit0().getPlayer().get_align() != 0)
-                            if (getInit1().getPlayer().getAccount().getCurrentIp().compareTo(getInit0().getPlayer().getAccount().getCurrentIp()) != 0 || Main.allowMulePvp)
+                            if (getInit1().getPlayer().getAccount().getCurrentIp().compareTo(getInit0().getPlayer().getAccount().getCurrentIp()) != 0 || Main.INSTANCE.getAllowMulePvp())
                                 winH = Formulas.calculHonorWin(winners, loosers, i);
 
                         if (player == null)
@@ -5193,7 +5193,7 @@ public class Fight {
     public static Map<Player, String> give(ArrayList<GameObject> objects, ArrayList<Fighter> winners) {
         final Map<Player, String> list = new HashMap<>();
 
-        if(Config.getInstance().HEROIC) {
+        if(Config.INSTANCE.getHEROIC) {
             final ArrayList<Player> players = new ArrayList<>();
 
             new ArrayList<>(winners).stream().filter(fighter -> fighter != null).forEach(fighter -> {

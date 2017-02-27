@@ -17,8 +17,8 @@ public class IA21 extends AbstractIA  {
     @Override
     public void apply() {
         if (!this.stop && this.fighter.canPlay() && this.count > 0) {
-            Function.getInstance().buffIfPossibleKrala(this.fight, this.fighter, this.fighter);
-            Function.getInstance().invoctantaIfPossible(this.fight, this.fighter);
+            Function.INSTANCE.getbuffIfPossibleKrala(this.fight, this.fighter, this.fighter);
+            Function.INSTANCE.getinvoctantaIfPossible(this.fight, this.fighter);
             addNext(this::decrementCount, 1000);
         } else {
             this.stop = true;

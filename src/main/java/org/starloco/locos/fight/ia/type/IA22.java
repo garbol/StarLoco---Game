@@ -17,12 +17,12 @@ public class IA22 extends AbstractIA  {
     @Override
     public void apply() {
         if (!this.stop && this.fighter.canPlay() && this.count > 0) {
-            Fighter ennemy = Function.getInstance().getNearestEnnemy(this.fight, this.fighter);
+            Fighter ennemy = Function.INSTANCE.getgetNearestEnnemy(this.fight, this.fighter);
 
-            if (Function.getInstance().IfPossibleRasboulvulner(this.fight, this.fighter, this.fighter) == 0)
-                if (Function.getInstance().moveFarIfPossible(this.fight, this.fighter) == 0)
-                    if (Function.getInstance().tpIfPossibleRasboul(this.fight, this.fighter, ennemy) == 0)
-                        Function.getInstance().invocIfPossible(this.fight, this.fighter);
+            if (Function.INSTANCE.getIfPossibleRasboulvulner(this.fight, this.fighter, this.fighter) == 0)
+                if (Function.INSTANCE.getmoveFarIfPossible(this.fight, this.fighter) == 0)
+                    if (Function.INSTANCE.gettpIfPossibleRasboul(this.fight, this.fighter, ennemy) == 0)
+                        Function.INSTANCE.getinvocIfPossible(this.fight, this.fighter);
 
             addNext(this::decrementCount, 1000);
         } else {

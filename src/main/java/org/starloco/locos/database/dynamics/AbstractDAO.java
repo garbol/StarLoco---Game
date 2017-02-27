@@ -82,7 +82,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
             logger.error("Can't getWaitingAccount datasource connection", e);
             dataSource.close();
             if (!Database.getDynamics().initializeConnection())
-                Main.stop("PreparedStatement failed");
+                Main.INSTANCE.stop("PreparedStatement failed");
             return null;
         }
     }

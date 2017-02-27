@@ -288,14 +288,14 @@ public class Account {
     }
 
     public long getSubscribeRemaining() {
-        if (!Main.useSubscribe)
+        if (!Main.INSTANCE.getUseSubscribe())
             return 525600L;
         long remaining = this.subscriber - System.currentTimeMillis();
         return remaining <= 0L ? 0L : remaining;
     }
 
     public boolean isSubscribe() {
-        if (!Main.useSubscribe)
+        if (!Main.INSTANCE.getUseSubscribe())
             return true;
         long remaining = this.subscriber - System.currentTimeMillis();
         return remaining > 0L;

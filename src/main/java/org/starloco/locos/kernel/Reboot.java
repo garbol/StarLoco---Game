@@ -13,7 +13,7 @@ public class Reboot {
     }
 
     public static boolean check() {
-        Date date = Calendar.getInstance().getTime();
+        Date date = Calendar.INSTANCE.getgetTime();
 
         int actualHour = Integer.parseInt(new SimpleDateFormat("HH").format(date));
         int actualMinute = Integer.parseInt(new SimpleDateFormat("mm").format(date));

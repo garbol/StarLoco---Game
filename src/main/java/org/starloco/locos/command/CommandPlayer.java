@@ -48,14 +48,14 @@ public class CommandPlayer {
 
                 player.getGameClient().timeLastTaverne = System.currentTimeMillis();
 
-                String prefix = "<font color='#C35617'>[" + (new SimpleDateFormat("HH:mm").format(new Date(System.currentTimeMillis()))) + "] (" + canal + ") (" + (Config.getInstance().NAME.isEmpty() ? getNameServerById(Main.serverId) : Config.getInstance().NAME) + ") <b><a href='asfunction:onHref,ShowPlayerPopupMenu," + player.getName() + "'>" + player.getName() + "</a></b>";
+                String prefix = "<font color='#C35617'>[" + (new SimpleDateFormat("HH:mm").format(new Date(System.currentTimeMillis()))) + "] (" + canal + ") (" + (Config.INSTANCE.getNAME.isEmpty() ? getNameServerById(Main.INSTANCE.getServerId()) : Config.INSTANCE.getNAME) + ") <b><a href='asfunction:onHref,ShowPlayerPopupMenu," + player.getName() + "'>" + player.getName() + "</a></b>";
 
-                Logging.getInstance().write("AllMessage", "[" + (new SimpleDateFormat("HH:mm").format(new Date(System.currentTimeMillis()))) + "] : " + player.getName() + " : " + msg.substring(5, msg.length() - 1));
+                Logging.INSTANCE.getwrite("AllMessage", "[" + (new SimpleDateFormat("HH:mm").format(new Date(System.currentTimeMillis()))) + "] : " + player.getName() + " : " + msg.substring(5, msg.length() - 1));
 
                 final String message = "Im116;" + prefix + "~" + msg.substring(5, msg.length() - 1).replace(";", ":").replace("~", "").replace("|", "").replace("<", "").replace(">", "") + "</font>";
 
                 World.world.getOnlinePlayers().stream().filter(p -> !p.noall).forEach(p -> p.send(message));
-                Main.exchangeClient.send("DM" + player.getName() + "|" + getNameServerById(Main.serverId) + "|" + msg.substring(5, msg.length() - 1).replace("\n", "").replace("\r", "").replace(";", ":").replace("~", "").replace("|", "").replace("<", "").replace(">", "") + "|");
+                Main.INSTANCE.getExchangeClient().send("DM" + player.getName() + "|" + getNameServerById(Main.INSTANCE.getServerId()) + "|" + msg.substring(5, msg.length() - 1).replace("\n", "").replace("\r", "").replace(";", ":").replace("~", "").replace("|", "").replace("<", "").replace(">", "") + "|");
                 return true;
             } else if (command(msg, "noall")) {
                 if (player.noall) {
@@ -121,7 +121,7 @@ public class CommandPlayer {
                 return true;
             } else if (command(msg, "infos")) {
                 long uptime = System.currentTimeMillis()
-                        - Config.getInstance().startTime;
+                        - Config.INSTANCE.getstartTime;
                 int jour = (int) (uptime / (1000 * 3600 * 24));
                 uptime %= (1000 * 3600 * 24);
                 int hour = (int) (uptime / (1000 * 3600));
@@ -129,8 +129,8 @@ public class CommandPlayer {
                 int min = (int) (uptime / (1000 * 60));
                 uptime %= (1000 * 60);
                 int sec = (int) (uptime / (1000));
-                int nbPlayer = Main.gameServer.getClients().size();
-                int nbPlayerIp = Main.gameServer.getPlayersNumberByIp();
+                int nbPlayer = Main.INSTANCE.getGameServer().getClients().size();
+                int nbPlayerIp = Main.INSTANCE.getGameServer().getPlayersNumberByIp();
 
                 String mess = Lang.get(player, 8).replace("#1", String.valueOf(jour)).replace("#2", String.valueOf(hour)).replace("#3", String.valueOf(min)).replace("#4", String.valueOf(sec));
                 if (nbPlayer > 0)
@@ -223,7 +223,7 @@ public class CommandPlayer {
 
                 player.sendTypeMessage("Bank", "Le transfert a été effectué, " + count + " objet(s) ont été déplacés.");
                 return true;
-            }else if (Config.getInstance().TEAM_MATCH && command(msg, "kolizeum")) {
+            }else if (Config.INSTANCE.getTEAM_MATCH && command(msg, "kolizeum")) {
                 if (player.kolizeum != null) {
                     if (player.getParty() != null) {
                         if (player.getParty().isChief(player.getId())) {
@@ -259,7 +259,7 @@ public class CommandPlayer {
                     }
                 }
                 return true;
-            } else  if (Config.getInstance().DEATH_MATCH && command(msg, "deathmatch")) {
+            } else  if (Config.INSTANCE.getDEATH_MATCH && command(msg, "deathmatch")) {
                 if(player.cantTP()) return true;
                 if (player.deathMatch != null) {
                     FightManager.removeDeathMatch(player.deathMatch);
@@ -330,7 +330,7 @@ public class CommandPlayer {
                 return true;
             } else if(command(msg, "event")) {
                 if(player.cantTP()) return true;
-                return EventManager.getInstance().subscribe(player) == 1;
+                return EventManager.INSTANCE.getsubscribe(player) == 1;
             } else {
                 player.sendMessage(Lang.get(player, 12));
                 return true;

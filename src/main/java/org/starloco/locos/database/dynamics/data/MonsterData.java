@@ -54,7 +54,7 @@ public class MonsterData extends AbstractDAO<Monster> {
 
         } catch (SQLException e) {
             super.sendError("MonsterData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }

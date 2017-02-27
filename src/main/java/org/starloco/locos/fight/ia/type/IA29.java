@@ -17,11 +17,11 @@ public class IA29 extends AbstractIA  {
     @Override
     public void apply() {
         if (!this.stop && this.fighter.canPlay() && this.count > 0) {
-            Fighter ennemy = Function.getInstance().getNearestEnnemy(this.fight, this.fighter);
+            Fighter ennemy = Function.INSTANCE.getgetNearestEnnemy(this.fight, this.fighter);
 
-            if(!Function.getInstance().buffIfPossibleTortu(this.fight, this.fighter, this.fighter))
-                Function.getInstance().moveNearIfPossible(this.fight, this.fighter, ennemy);
-            Function.getInstance().moveNearIfPossible(this.fight, this.fighter, ennemy);
+            if(!Function.INSTANCE.getbuffIfPossibleTortu(this.fight, this.fighter, this.fighter))
+                Function.INSTANCE.getmoveNearIfPossible(this.fight, this.fighter, ennemy);
+            Function.INSTANCE.getmoveNearIfPossible(this.fight, this.fighter, ennemy);
 
             addNext(this::decrementCount, 1000);
         } else {

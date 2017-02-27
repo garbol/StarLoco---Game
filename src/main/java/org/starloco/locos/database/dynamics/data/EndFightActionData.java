@@ -41,7 +41,7 @@ public class EndFightActionData extends AbstractDAO<Object> {
             return nbr;
         } catch (SQLException e) {
             super.sendError("Endfight_actionData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }

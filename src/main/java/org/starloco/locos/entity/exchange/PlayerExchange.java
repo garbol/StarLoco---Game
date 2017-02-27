@@ -170,7 +170,7 @@ public class PlayerExchange extends Exchange {
             }
             str += " avec " + kamas2 + " K.";
             if (Logging.USE_LOG)
-                Logging.getInstance().write("Object", "Exchange : " + str);
+                Logging.INSTANCE.getwrite("Object", "Exchange : " + str);
         } catch (Exception e) {
             e.printStackTrace();
         }

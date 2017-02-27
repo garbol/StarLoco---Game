@@ -316,7 +316,7 @@ public class Player {
                 this.curCell = curMap.getCase(311);
             } else if (curMap == null && World.world.getMap((short) 7411) == null) {
                 GameServer.a();
-                Main.stop("Player1");
+                Main.INSTANCE.stop("Player1");
                 return;
             } else if (curMap != null) {
                 this.curCell = curMap.getCase(cell);
@@ -335,7 +335,7 @@ public class Player {
                 }
             }
             if (!isNew && (curMap == null || curCell == null)) {
-                Main.stop("Player2");
+                Main.INSTANCE.stop("Player2");
                 return;
             }
             if (!stuff.equals("")) {
@@ -471,7 +471,7 @@ public class Player {
     public static Player CREATE_PERSONNAGE(String name, int sexe, int classe,
                                            int color1, int color2, int color3, Account compte) {
         String z = "";
-        if (Config.getInstance().ALL_ZAAP) {
+        if (Config.INSTANCE.getALL_ZAAP()) {
             for (Entry<Integer, Integer> i : Constant.ZAAPS.entrySet()) {
                 if (z.length() != 0)
                     z += ",";
@@ -482,13 +482,16 @@ public class Player {
             return null;
         if (sexe < 0 || sexe > 1)
             return null;
-        Player perso = new Player(Database.getStatics().getPlayerData().getNextId(), name, -1, sexe, classe, color1, color2, color3, Main.startKamas, ((Main.startLevel - 1)), ((Main.startLevel - 1) * 5), 10000, Main.startLevel, World.world.getPersoXpMin(Main.startLevel), 100, Integer.parseInt(classe
-                + "" + sexe), (byte) 0, compte.getId(), new HashMap<Integer, Integer>(), (byte) 1, (byte) 0, (byte) 0, "*#%!pi$:?", (Config.getInstance().START_MAP != 0 ? (short) Config.getInstance().START_MAP : Constant.getStartMap(classe)), (Config.getInstance().START_CELL != 0 ? (short) Config.getInstance().START_CELL : Constant.getStartCell(classe)),
+        int startMap = Config.INSTANCE.getSTART_MAP();
+        int startCell = Config.INSTANCE.getSTART_CELL();
+        
+        Player perso = new Player(Database.getStatics().getPlayerData().getNextId(), name, -1, sexe, classe, color1, color2, color3, Config.INSTANCE.getStartKamas(), ((Config.INSTANCE.getStartLevel() - 1)), ((Config.INSTANCE.getStartLevel() - 1) * 5), 10000, Config.INSTANCE.getStartLevel(), World.world.getPersoXpMin(Config.INSTANCE.getStartLevel()), 100, Integer.parseInt(classe
+                + "" + sexe), (byte) 0, compte.getId(), new HashMap<>(), (byte) 1, (byte) 0, (byte) 0, "*#%!pi$:?", (startMap != 0 ? (short) startMap : Constant.getStartMap(classe)), (startCell != 0 ? (short) startCell : Constant.getStartCell(classe)),
                 //(short)6824,
                 //224,
-                "", "", 100, "", (Config.getInstance().START_MAP != 0 ? (short) Config.getInstance().START_MAP : Constant.getStartMap(classe))
+                "", "", 100, "", (startMap != 0 ? (short) startMap : Constant.getStartMap(classe))
                 + ","
-                + (Config.getInstance().START_CELL != 0 ? (short) Config.getInstance().START_CELL : Constant.getStartCell(classe)), "", 0, -1, 0, 0, 0, z, (byte) 0, 0, "0;0", "", (Config.getInstance().ALL_EMOTE ? "0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21" : "0"), 0, true, "118,0;119,0;123,0;124,0;125,0;126,0", 0, false, "0,0,0,0", (byte) 0, 0);
+                + (startCell != 0 ? (short) startCell : Constant.getStartCell(classe)), "", 0, -1, 0, 0, 0, z, (byte) 0, 0, "0;0", "", (Config.INSTANCE.getALL_EMOTE()) ? "0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21" : "0"), 0, true, "118,0;119,0;123,0;124,0;125,0;126,0", 0, false, "0,0,0,0", (byte) 0, 0);
         perso.emotes.add(1);
         perso._sorts = Constant.getStartSorts(classe);
         for (int a = 1; a <= perso.getLevel(); a++)
@@ -500,7 +503,7 @@ public class Player {
         if (!Database.getStatics().getPlayerData().add(perso))
             return null;
         World.world.addPlayer(perso);
-        if (Main.key.equals("jiva")) {
+        if (Config.INSTANCE.getSERVER_KEY().equals("jiva")) {
             for (ObjectTemplate t : World.world.getItemSet(5).getItemTemplates()) {
                 GameObject obj = t.createNewItem(1, true);
                 if (perso.addObjet(obj, true))
@@ -1597,9 +1600,9 @@ public class Player {
         perso.append((color3 != -1 ? Integer.toHexString(color3) : "-1")).append(";");
         perso.append(getGMStuffString()).append(";");
         perso.append((this.isShowSeller() ? 1 : 0)).append(";");
-        perso.append(Main.serverId).append(";");
+        perso.append(Config.INSTANCE.getSERVER_ID()).append(";");
 
-        if (this.dead == 1 && Config.getInstance().HEROIC) {
+        if (this.dead == 1 && Config.INSTANCE.getHEROIC()) {
             perso.append(this.dead).append(";").append(this.deathCount);
         } else {
             perso.append(0);
@@ -1699,8 +1702,8 @@ public class Player {
         World.world.showPrismes(this);
         //Actualisation dans la DB
         Database.getStatics().getAccountData().updateLastConnection(account);
-        if (!Config.getInstance().startMessage.equals(""))//Si le motd est notifi�
-            SocketManager.GAME_SEND_MESSAGE(this, Config.getInstance().startMessage);
+        if (!Config.INSTANCE.getStartMessage().equals(""))//Si le motd est notifi�
+            SocketManager.GAME_SEND_MESSAGE(this, Config.INSTANCE.getStartMessage());
 
         for (GameObject object : this.objects.values()) {
             if (object.getTemplate().getType() == Constant.ITEM_TYPE_FAMILIER) {
@@ -1733,9 +1736,9 @@ public class Player {
         if (_morphMode)
             setFullMorph(_morphId, true, true);
 
-        if (Config.getInstance().AUTO_REBOOT)
+        if (Config.INSTANCE.getAUTO_REBOOT())
             this.send(Reboot.toStr());
-        if(Main.fightAsBlocked)
+        if(Main.INSTANCE.getFightAsBlocked())
             this.sendServerMessage("You can't fight until new order.");
         EventManager manager = EventManager.getInstance();
         if(manager.getCurrentEvent() != null && manager.getState() == EventManager.State.PROCESSED)
@@ -3131,7 +3134,7 @@ public class Player {
             case "points":
                 return this.getAccount().getPoints() + "";
             case "nbrOnline":
-                return Main.gameServer.getClients().size() + "";
+                return Main.INSTANCE.getGameServer().getClients().size() + "";
             case "align":
                 return World.world.getStatOfAlign();
         }
@@ -3665,7 +3668,7 @@ public class Player {
     public void toogleOnMount() {
         if (_mount == null || this.isMorph() || this.getLevel() < 60)
             return;
-        if (Main.useSubscribe) {
+        if (Main.INSTANCE.getUseSubscribe()) {
             SocketManager.GAME_SEND_Im_PACKET(this, "1115");
             return;
         }
@@ -3951,7 +3954,7 @@ public class Player {
     }
 
     public boolean verifOtomaiZaap() {
-        return Config.getInstance().ALL_ZAAP || !(this.getCurMap().getId() == 10643 || this.getCurMap().getId() == 11210)
+        return Config.INSTANCE.getALL_ZAAP || !(this.getCurMap().getId() == 10643 || this.getCurMap().getId() == 11210)
                 || World.world.getConditionManager().validConditions(this, "QT=231") && World.world.getConditionManager().validConditions(this, "QT=232");
     }
 
@@ -4534,7 +4537,7 @@ public class Player {
     public void setGhost() {
         if (isOnMount())
             toogleOnMount();
-        if(Config.getInstance().HEROIC) {
+        if(Config.INSTANCE.getHEROIC) {
             this.setGfxId(Integer.parseInt(this.getClasse() + "" + this.getSexe()));
             this.send("GO");
             return;
@@ -5480,11 +5483,11 @@ public class Player {
     }
 
     public boolean isSubscribe() {
-        return !Main.useSubscribe || this.getAccount().isSubscribe();
+        return !Main.INSTANCE.getUseSubscribe() || this.getAccount().isSubscribe();
     }
 
     public boolean isInAreaNotSubscribe() {
-        boolean ok = Main.useSubscribe;
+        boolean ok = Main.INSTANCE.getUseSubscribe();
 
         if (this.curMap == null)
             return false;

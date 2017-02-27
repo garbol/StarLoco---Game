@@ -41,7 +41,7 @@ public class NpcAnswerData extends AbstractDAO<Object> {
             }
         } catch (SQLException e) {
             super.sendError("Npc_reponses_actionData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }

@@ -17,10 +17,10 @@ public class IA23 extends AbstractIA  {
     @Override
     public void apply() {
         if (!this.stop && this.fighter.canPlay() && this.count > 0) {
-            Fighter ennemy = Function.getInstance().getNearestFriendNoInvok(this.fight, this.fighter);
+            Fighter ennemy = Function.INSTANCE.getgetNearestFriendNoInvok(this.fight, this.fighter);
 
-            if (!Function.getInstance().moveNearIfPossible(this.fight, this.fighter, ennemy))
-                Function.getInstance().HealIfPossible(this.fight, this.fighter, false);
+            if (!Function.INSTANCE.getmoveNearIfPossible(this.fight, this.fighter, ennemy))
+                Function.INSTANCE.getHealIfPossible(this.fight, this.fighter, false);
 
             addNext(this::decrementCount, 500);
         } else {

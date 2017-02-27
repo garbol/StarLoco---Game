@@ -45,9 +45,9 @@ public class Logging {
             }
         }
 
-        final String date = Calendar.getInstance().get(Calendar.YEAR) + "-"
-                + Calendar.getInstance().get(Calendar.MONTH) + "-"
-                + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        final String date = Calendar.INSTANCE.getget(Calendar.YEAR) + "-"
+                + Calendar.INSTANCE.getget(Calendar.MONTH) + "-"
+                + Calendar.INSTANCE.getget(Calendar.DAY_OF_MONTH);
 
         try {
             this.logs.add(new Log(name, date));
@@ -73,9 +73,9 @@ public class Logging {
         }
 
         public void write(String arg0) throws IOException {
-            final int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
-            min = Calendar.getInstance().get(Calendar.MINUTE),
-            sec = Calendar.getInstance().get(Calendar.SECOND);
+            final int hour = Calendar.INSTANCE.getget(Calendar.HOUR_OF_DAY),
+            min = Calendar.INSTANCE.getget(Calendar.MINUTE),
+            sec = Calendar.INSTANCE.getget(Calendar.SECOND);
 
             final String date = "[" + (hour < 10 ? "0" : "") + hour + " : " + (min < 10 ? "0" : "") + min + " : "
                     + (sec < 10 ? "0" : "") + sec + "] : ";

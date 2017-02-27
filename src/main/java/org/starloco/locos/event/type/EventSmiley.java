@@ -47,7 +47,7 @@ public class EventSmiley extends Event {
 
         TimerWaiter.addNext(() -> {
             boolean ok = true;
-            while (EventManager.getInstance().getState() == EventManager.State.INITIALIZE || EventManager.getInstance().getState() == EventManager.State.PROCESSED) {
+            while (EventManager.INSTANCE.getgetState() == EventManager.State.INITIALIZE || EventManager.INSTANCE.getgetState() == EventManager.State.PROCESSED) {
                 moveAnimatorToCellId(ok ? 137 : 221);
                 wait(2500);
                 ok = !ok;
@@ -86,7 +86,7 @@ public class EventSmiley extends Event {
     public void execute() {
         this.count = 0;
 
-        List<Player> participants = new ArrayList<>(EventManager.getInstance().getParticipants());
+        List<Player> participants = new ArrayList<>(EventManager.INSTANCE.getgetParticipants());
         int nbPlayers = participants.size();
 
         for(Player player : participants)
@@ -151,7 +151,7 @@ public class EventSmiley extends Event {
             }
 
             wait(1000);
-            if(EventManager.getInstance().getParticipants().size() > 1) {
+            if(EventManager.INSTANCE.getgetParticipants().size() > 1) {
                 SocketManager.GAME_SEND_cMK_PACKET_TO_MAP(this.map, "", this.animator.getId(), "Event", "C'est parti pour le " + (this.count + 1) + "éme tours !");
             }
             wait(2000);
@@ -162,8 +162,8 @@ public class EventSmiley extends Event {
 
     @Override
     public void close() {
-        if(!EventManager.getInstance().getParticipants().isEmpty()) {
-            Player winner = EventManager.getInstance().getParticipants().get(0);
+        if(!EventManager.INSTANCE.getgetParticipants().isEmpty()) {
+            Player winner = EventManager.INSTANCE.getgetParticipants().get(0);
 
             SocketManager.GAME_SEND_cMK_PACKET_TO_MAP(this.map, "", this.animator.getId(), "Event", "Félicitations à " + winner.getName() + " pour ça victoire !");
             winner.sendMessage("(<b>Infos</b>) : Vous venez de remporter 1 jeton !");
@@ -186,7 +186,7 @@ public class EventSmiley extends Event {
         this.map.removeNpcOrMobGroup(this.animator.getId());
         this.map.send("GM|-" + this.animator.getId());
         this.map.send("GV");
-        EventManager.getInstance().finishCurrentEvent();
+        EventManager.INSTANCE.getfinishCurrentEvent();
     }
 
     public GameCase getEmptyCellForPlayer(Player player) {
@@ -195,7 +195,7 @@ public class EventSmiley extends Event {
 
     @Override
     public void kickPlayer(Player player) {
-        EventManager.getInstance().getParticipants().remove(player);
+        EventManager.INSTANCE.getgetParticipants().remove(player);
         Iterator<World.Couple<Player, List<Byte>>> iterator = this.answers.iterator();
 
         while(iterator.hasNext()) {
@@ -231,7 +231,7 @@ public class EventSmiley extends Event {
 
     private void initializeTurn(short time) {
         this.state = 1;
-        for (Player player : EventManager.getInstance().getParticipants()) {
+        for (Player player : EventManager.INSTANCE.getgetParticipants()) {
             player.send("GTS" + player.getId() + "|" + time);
         }
     }

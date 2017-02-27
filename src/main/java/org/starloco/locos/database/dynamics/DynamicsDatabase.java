@@ -117,15 +117,15 @@ public class DynamicsDatabase {
     public boolean initializeConnection() {
         try {
             logger.setLevel(Level.ALL);
-            logger.trace("Reading database config");
+            logger.trace("Reading database data");
 
             HikariConfig config = new HikariConfig();
             config.setDataSourceClassName("org.mariadb.jdbc.Driver");
-            config.addDataSourceProperty("serverName", Main.hostDB);
-            config.addDataSourceProperty("port", Main.portDB);
-            config.addDataSourceProperty("databaseName", Main.nameDB);
-            config.addDataSourceProperty("user", Main.userDB);
-            config.addDataSourceProperty("password", Main.passDB);
+            config.addDataSourceProperty("serverName", Main.INSTANCE.getHostDB());
+            config.addDataSourceProperty("port", Main.INSTANCE.getPortDB());
+            config.addDataSourceProperty("databaseName", Main.INSTANCE.getNameDB());
+            config.addDataSourceProperty("user", Main.INSTANCE.getUserDB());
+            config.addDataSourceProperty("password", Main.INSTANCE.getPassDB());
             config.setAutoCommit(true); // AutoCommit, c'est cool
             config.setMaximumPoolSize(10);
             config.setMinimumIdle(1);
@@ -133,7 +133,7 @@ public class DynamicsDatabase {
 
             if (!Database.tryConnection(this.dataSource)) {
                 logger.error("Please verify your username and password and database connection");
-                Main.stop("try database connection failed");
+                Main.INSTANCE.stop("try database connection failed");
                 return false;
             }
 

@@ -52,7 +52,7 @@ public class SocketManager {
     }
 
     public static void MULTI_SEND_Af_PACKET(GameClient out, int position, int totalAbo, int totalNonAbo, int button) {
-        send(out, "Af" + position + "|" + totalAbo + "|" + totalNonAbo + "|" + button + "|" + Main.serverId);
+        send(out, "Af" + position + "|" + totalAbo + "|" + totalNonAbo + "|" + button + "|" + Main.INSTANCE.getServerId());
     }
 
     public static void GAME_SEND_ATTRIBUTE_FAILED(GameClient out) {
@@ -70,7 +70,7 @@ public class SocketManager {
         StringBuilder packet = new StringBuilder();
 
         packet.append("ALK");
-        if (Main.useSubscribe)
+        if (Main.INSTANCE.getUseSubscribe())
             packet.append(subscriber);
         else
             packet.append("86400000");
@@ -661,7 +661,7 @@ public class SocketManager {
     }
 
     public static void GAME_SEND_MESSAGE(Player out, String mess) {
-        String packet = "cs<font color='#" + Config.getInstance().colorMessage
+        String packet = "cs<font color='#" + Config.INSTANCE.getcolorMessage
                 + "'>" + mess + "</font>";
         send(out, packet);
     }

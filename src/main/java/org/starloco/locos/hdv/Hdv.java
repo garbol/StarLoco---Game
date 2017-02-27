@@ -157,7 +157,7 @@ public class Hdv {
                 if(World.world.getAccount(toBuy.getOwner()) != null)
                     name = World.world.getAccount(toBuy.getOwner()).getName();
 
-                Logging.getInstance().write("Object", "BuyHdv : "
+                Logging.INSTANCE.getwrite("Object", "BuyHdv : "
                         + newOwner.getName() + " : achat de "
                         + toBuy.getGameObject().getTemplate().getName() + " x"
                         + toBuy.getGameObject().getQuantity() + " venant du compte "

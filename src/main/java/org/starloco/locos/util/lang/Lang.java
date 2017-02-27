@@ -23,11 +23,11 @@ public interface Lang {
     static String get(byte language, int index) {
         switch(language) {
             case FRENCH:
-                return French.getInstance().get(index);
+                return French.INSTANCE.getget(index);
             case ENGLISH:
-                return English.getInstance().get(index);
+                return English.INSTANCE.getget(index);
             case SPANISH:
-                return Spanish.getInstance().get(index);
+                return Spanish.INSTANCE.getget(index);
             default:
                 return "Unknown lang data, please contact administrator.";
         }

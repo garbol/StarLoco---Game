@@ -1,11 +1,11 @@
 #Custom paths
 Logs/
-config.txt
+data.txt
 
 
 # Created by https://www.gitignore.io/api/java,intellij,intellij+iml
-config.properties
-config.txt
+data.properties
+data.txt
 .idea/vcs.xml
 
 ### Intellij ###

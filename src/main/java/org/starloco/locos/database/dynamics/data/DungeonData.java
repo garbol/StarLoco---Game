@@ -33,7 +33,7 @@ public class DungeonData extends AbstractDAO<Object> {
             }
         } catch (SQLException e) {
             super.sendError("DonjonData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }

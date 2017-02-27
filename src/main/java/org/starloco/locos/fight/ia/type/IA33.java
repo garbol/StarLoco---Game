@@ -28,49 +28,49 @@ public class IA33 extends AbstractNeedSpell  {
                 if(S.getMaxPO() > maxPo)
                     maxPoBuff = S.getMaxPO();
 
-            Fighter nearestEnnemy = Function.getInstance().getNearestEnnemy(this.fight, this.fighter);
-            Fighter ennemy1 = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 1, maxPo + 1);// pomax +1;
-            Fighter ennemy2 = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
-            Fighter ennemy3 = Function.getInstance().getNearestAminbrcasemax(this.fight, this.fighter, 0, maxPoBuff + 1);//2 = po min 1 + 1;
+            Fighter nearestEnnemy = Function.INSTANCE.getgetNearestEnnemy(this.fight, this.fighter);
+            Fighter ennemy1 = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 1, maxPo + 1);// pomax +1;
+            Fighter ennemy2 = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+            Fighter ennemy3 = Function.INSTANCE.getgetNearestAminbrcasemax(this.fight, this.fighter, 0, maxPoBuff + 1);//2 = po min 1 + 1;
 
             if(maxPo == 1) ennemy1 = null;
             if(ennemy2 != null) if(ennemy2.isHide()) ennemy2 = null;
             if(ennemy1 != null) if(ennemy1.isHide()) ennemy1 = null;
 
             if(this.fighter.getCurPm(this.fight) > 0 && ennemy1 == null && ennemy2 == null) {
-                int value = Function.getInstance().moveautourIfPossible(this.fight, this.fighter, nearestEnnemy);
+                int value = Function.INSTANCE.getmoveautourIfPossible(this.fight, this.fighter, nearestEnnemy);
                 if(value != 0) {
                     time = value;
                     action = true;
-                    ennemy1 = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 1, maxPo + 1);// pomax +1;
-                    ennemy2 = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
-                    ennemy3 = Function.getInstance().getNearestAminbrcasemax(this.fight, this.fighter, 0, maxPoBuff+1);//2 = po min 1 + 1;
+                    ennemy1 = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 1, maxPo + 1);// pomax +1;
+                    ennemy2 = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+                    ennemy3 = Function.INSTANCE.getgetNearestAminbrcasemax(this.fight, this.fighter, 0, maxPoBuff+1);//2 = po min 1 + 1;
                     if(maxPo == 1) ennemy1 = null;
                 }
             }
 
             if(this.fighter.getCurPa(this.fight) > 0 && !action) {
-                if (Function.getInstance().invocIfPossible(this.fight, this.fighter, this.invocations)) {
+                if (Function.INSTANCE.getinvocIfPossible(this.fight, this.fighter, this.invocations)) {
                     time = 2000;
                     action = true;
                 }
             }
 
             if(this.fighter.getCurPa(this.fight) > 0 && !action && ennemy3 != null) {
-                if (Function.getInstance().buffIfPossible(this.fight, this.fighter, ennemy3, this.buffs)) {
+                if (Function.INSTANCE.getbuffIfPossible(this.fight, this.fighter, ennemy3, this.buffs)) {
                     time = 2000;
                     action = true;
                 }
             }
 
             if(this.fighter.getCurPa(this.fight) > 0 && ennemy1 != null && ennemy2 == null && !action) {
-                int value = Function.getInstance().attackIfPossible(this.fight, this.fighter, this.highests);
+                int value = Function.INSTANCE.getattackIfPossible(this.fight, this.fighter, this.highests);
                 if(value != 0) {
                     time = value;
                     action = true;
                 }
             } else if(this.fighter.getCurPa(this.fight) > 0 && ennemy2 != null && !action) {
-                int value = Function.getInstance().attackIfPossible(this.fight, this.fighter, this.cacs);
+                int value = Function.INSTANCE.getattackIfPossible(this.fight, this.fighter, this.cacs);
                 if(value != 0) {
                     time = value;
                     action = true;
@@ -78,7 +78,7 @@ public class IA33 extends AbstractNeedSpell  {
             }
 
             if(this.fighter.getCurPa(this.fight) > 0 && ennemy2 != null && !action) {
-                int value = Function.getInstance().attackIfPossible(this.fight, this.fighter, this.highests);
+                int value = Function.INSTANCE.getattackIfPossible(this.fight, this.fighter, this.highests);
                 if(value != 0) {
                     time = value;
                     action = true;
@@ -86,7 +86,7 @@ public class IA33 extends AbstractNeedSpell  {
             }
 
             if(this.fighter.getCurPm(this.fight) > 0 && !action) {
-                int value = Function.getInstance().moveautourIfPossible(this.fight, this.fighter, nearestEnnemy);
+                int value = Function.INSTANCE.getmoveautourIfPossible(this.fight, this.fighter, nearestEnnemy);
                 if(value != 0) time = value;
             }
 

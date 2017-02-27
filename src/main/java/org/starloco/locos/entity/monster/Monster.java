@@ -881,9 +881,9 @@ public class Monster {
         }
 
         public ArrayList<GameObject> getObjects() {
-            if(this.objects == null && Config.getInstance().HEROIC)
+            if(this.objects == null && Config.INSTANCE.getHEROIC)
                 this.objects = new ArrayList<>();
-            else if(!Config.getInstance().HEROIC)
+            else if(!Config.INSTANCE.getHEROIC)
                 return new ArrayList<>();
             return objects;
         }

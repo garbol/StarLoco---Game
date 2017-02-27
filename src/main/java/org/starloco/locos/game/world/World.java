@@ -200,7 +200,7 @@ public class World {
     }
 
     public void addMap(GameMap map) {
-        if(map.getSubArea() != null && map.getSubArea().getArea().getId() == 42 && !Config.getInstance().NOEL)
+        if(map.getSubArea() != null && map.getSubArea().getArea().getId() == 42 && !Config.INSTANCE.getNOEL)
             return;
         maps.put(map.getId(), map);
     }
@@ -1162,12 +1162,12 @@ public class World {
             final GameMap map = boy.getCurMap();
             if (boy.getWife() != 0) {// 0 : femme | 1 = homme
                 boy.setBlockMovement(false);
-                SocketManager.GAME_SEND_MESSAGE_TO_MAP(map, boy.getName() + " est déjà marier !", Config.getInstance().colorMessage);
+                SocketManager.GAME_SEND_MESSAGE_TO_MAP(map, boy.getName() + " est déjà marier !", Config.INSTANCE.getcolorMessage);
                 return;
             }
             if (girl.getWife() != 0) {
                 boy.setBlockMovement(false);
-                SocketManager.GAME_SEND_MESSAGE_TO_MAP(map, girl.getName() + " est déjà marier !", Config.getInstance().colorMessage);
+                SocketManager.GAME_SEND_MESSAGE_TO_MAP(map, girl.getName() + " est déjà marier !", Config.INSTANCE.getcolorMessage);
                 return;
             }
             SocketManager.GAME_SEND_cMK_PACKET_TO_MAP(map, "", -1, "Prêtre", asked.getName() + " acceptez-vous d'épouser " + (asked.getSexe() == 1 ? girl : boy).getName() + " ?");
@@ -1637,7 +1637,7 @@ public class World {
     }
 
     public void reloadPlayerGroup() {
-        Main.gameServer.getClients().stream().filter(client -> client != null && client.getPlayer() != null).forEach(client -> Database.getStatics().getPlayerData().reloadGroup(client.getPlayer()));
+        Main.INSTANCE.getGameServer().getClients().stream().filter(client -> client != null && client.getPlayer() != null).forEach(client -> Database.getStatics().getPlayerData().reloadGroup(client.getPlayer()));
     }
 
     public void reloadDrops() {

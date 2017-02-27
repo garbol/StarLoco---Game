@@ -20,35 +20,35 @@ public class IA71 extends AbstractNeedSpell {
     public void apply() {
         if (!this.stop && this.fighter.canPlay() && this.count > 0) {
             int time = 100, maxPo = 1;
-            Fighter nearestEnnemy = Function.getInstance().getNearestEnnemy(this.fight, this.fighter);
+            Fighter nearestEnnemy = Function.INSTANCE.getgetNearestEnnemy(this.fight, this.fighter);
 
             for(Spell.SortStats S : this.highests)
                 if(S.getMaxPO() > maxPo)
                     maxPo = S.getMaxPO();
 
-            Fighter ennemy1 = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 8);// pomax +1;
+            Fighter ennemy1 = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 8);// pomax +1;
             Fighter ennemy2 = this.getNearestLowerHpEnemy();// low hp enemy
 
             if(this.fighter.getCurPa(this.fight) > 0) {
-                if (Function.getInstance().HealIfPossible(this.fight, this.fighter, true, 40) != 0) {
+                if (Function.INSTANCE.getHealIfPossible(this.fight, this.fighter, true, 40) != 0) {
                     time = 1000;
                 }
             }
 
             if(ennemy1 == null) {
-                Function.getInstance().moveNearIfPossible(this.fight, this.fighter, nearestEnnemy);
+                Function.INSTANCE.getmoveNearIfPossible(this.fight, this.fighter, nearestEnnemy);
             }
 
             if(this.fighter.getCurPa(this.fight) > 0) {
-                if (Function.getInstance().invocIfPossible(this.fight, this.fighter, this.invocations)) {
+                if (Function.INSTANCE.getinvocIfPossible(this.fight, this.fighter, this.invocations)) {
                     time = 1000;
                 }
             }
             if(this.fighter.getCurPa(this.fight) > 0) {
-                if (Function.getInstance().buffIfPossible(this.fight, this.fighter, this.fighter, this.buffs)) {
+                if (Function.INSTANCE.getbuffIfPossible(this.fight, this.fighter, this.fighter, this.buffs)) {
                     time = 1200;
                     if(this.fighter.getCurPa(this.fight) > 0) {
-                        if (Function.getInstance().buffIfPossible(this.fight, this.fighter, this.fighter, this.buffs)) {
+                        if (Function.INSTANCE.getbuffIfPossible(this.fight, this.fighter, this.fighter, this.buffs)) {
                             time = 1200;
                         }
                     }
@@ -56,12 +56,12 @@ public class IA71 extends AbstractNeedSpell {
             }
 
             if(this.fighter.getCurPa(this.fight) > 0 && ennemy2 != null) {
-                int value = Function.getInstance().attackIfPossibleAll(this.fight, this.fighter, ennemy2);
+                int value = Function.INSTANCE.getattackIfPossibleAll(this.fight, this.fighter, ennemy2);
                 if(value != 0) {
                     time = value;
                 }
             } else if(this.fighter.getCurPa(this.fight) > 0 && ennemy1 != null) {
-                int value = Function.getInstance().attackIfPossibleAll(this.fight, this.fighter, ennemy1);
+                int value = Function.INSTANCE.getattackIfPossibleAll(this.fight, this.fighter, ennemy1);
                 if(value != 0) {
                     time = value;
                 }
@@ -75,7 +75,7 @@ public class IA71 extends AbstractNeedSpell {
     }
 
     private Fighter getNearestLowerHpEnemy() {
-        for(Fighter fighter : Function.getInstance().getLowHpEnnemyList(this.fight, this.fighter).values())
+        for(Fighter fighter : Function.INSTANCE.getgetLowHpEnnemyList(this.fight, this.fighter).values())
             if(fighter != null && PathFinding.getDistanceBetweenTwoCase(this.fight.getMap(), this.fighter.getCell(), fighter.getCell()) < 8)
                 return fighter;
         return null;

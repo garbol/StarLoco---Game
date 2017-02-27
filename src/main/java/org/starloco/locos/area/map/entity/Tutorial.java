@@ -49,7 +49,7 @@ public class Tutorial {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Main.stop("Tutorial");
+            Main.INSTANCE.stop("Tutorial");
         }
     }
 

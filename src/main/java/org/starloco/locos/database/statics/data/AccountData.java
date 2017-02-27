@@ -3,6 +3,7 @@ package org.starloco.locos.database.statics.data;
 import ch.qos.logback.classic.Level;
 import com.zaxxer.hikari.HikariDataSource;
 import org.starloco.locos.client.Account;
+import org.starloco.locos.database.Database;
 import org.starloco.locos.database.statics.AbstractDAO;
 import org.starloco.locos.game.world.World;
 import org.starloco.locos.kernel.Config;
@@ -165,11 +166,11 @@ public class AccountData extends AbstractDAO<Account> {
 
     /** Points **/
     public int loadPoints(String user) {
-        return Config.getInstance().points.load(user);
+        return Database.getStatics().getAccountData().loadPointsWithoutUsersDb(user);
     }
 
     public void updatePoints(int id, int points) {
-        Config.getInstance().points.update(id, points);
+        Database.getStatics().getAccountData().updatePointsWithoutUsersDb(id, points);
     }
 
     public int loadPointsWithoutUsersDb(String user) {

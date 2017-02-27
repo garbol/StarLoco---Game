@@ -56,7 +56,7 @@ public class ScriptedCellData extends AbstractDAO<Object> {
             }
         } catch (SQLException e) {
             super.sendError("Scripted_cellData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }

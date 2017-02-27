@@ -26,7 +26,7 @@ public class ServerData extends AbstractDAO<Object> {
         try {
             p = getPreparedStatement("UPDATE servers SET `uptime` = ? WHERE `id` = ?");
             p.setLong(1, time);
-            p.setInt(2, Main.serverId);
+            p.setInt(2, Main.INSTANCE.getServerId());
             execute(p);
         } catch (SQLException e) {
             super.sendError("ServerData updateTime", e);
@@ -38,7 +38,7 @@ public class ServerData extends AbstractDAO<Object> {
     public void loggedZero() {
         PreparedStatement p = null;
         try {
-            p = getPreparedStatement("UPDATE players SET `logged` = 0 WHERE `server` = '" + Main.serverId + "'");
+            p = getPreparedStatement("UPDATE players SET `logged` = 0 WHERE `server` = '" + Main.INSTANCE.getServerId() + "'");
             execute(p);
         } catch (SQLException e) {
             super.sendError("ServerData loggedZero", e);

@@ -25,7 +25,7 @@ public class GroupData extends AbstractDAO<Group> {
                 new Group(RS.getInt("id"), RS.getString("name"), RS.getBoolean("isPlayer"), RS.getString("commands"));
         } catch (SQLException e) {
             super.sendError("GroupData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }

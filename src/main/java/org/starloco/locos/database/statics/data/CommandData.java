@@ -25,7 +25,7 @@ public class CommandData extends AbstractDAO<Command> {
                 new Command(RS.getInt("id"), RS.getString("command"), RS.getString("args"), RS.getString("description"));
         } catch (SQLException e) {
             super.sendError("CommandData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }

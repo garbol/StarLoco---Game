@@ -66,45 +66,45 @@ public class IA18 extends AbstractIA  {
 
             if(kImpair && dImpair) {
                 this.fighter.setState(29, 0);
-                int attack = Function.getInstance().attackIfPossibleDisciplepair(this.fight, this.fighter, kimbo);
+                int attack = Function.INSTANCE.getattackIfPossibleDisciplepair(this.fight, this.fighter, kimbo);
 
                 if (attack != 0) {
                     this.fight.getAllGlyphs().stream().filter(glyph -> glyph.getCell().getId() == this.fighter.getCell().getId()).forEach(glyph -> {
                         this.fighter.addBuff(128, 1, 1, 1, true, 3500, "", this.fighter, true);
                         SocketManager.GAME_SEND_GA_PACKET_TO_FIGHT(this.fight, 7, 78, this.fighter.getId() + "", this.fighter.getId() + "," + "" + "," + 1);
                     });
-                    Function.getInstance().moveFarIfPossible(this.fight, this.fighter);
+                    Function.INSTANCE.getmoveFarIfPossible(this.fight, this.fighter);
                 }
             } else if(kPair && dPair) {
                 this.fighter.setState(30, 0);
-                int attack = Function.getInstance().attackIfPossibleDiscipleimpair(this.fight, this.fighter, kimbo);
+                int attack = Function.INSTANCE.getattackIfPossibleDiscipleimpair(this.fight, this.fighter, kimbo);
 
                 if (attack != 0) {
                     this.fight.getAllGlyphs().stream().filter(entry -> entry.getCell().getId() == this.fighter.getCell().getId()).forEach(entry -> {
                         this.fighter.addBuff(128, 1, 1, 1, true, 3500, "", this.fighter, true);
                         SocketManager.GAME_SEND_GA_PACKET_TO_FIGHT(this.fight, 7, 78, this.fighter.getId() + "", this.fighter.getId() + "," + "" + "," + 1);
                     });
-                    Function.getInstance().moveFarIfPossible(this.fight, this.fighter);
+                    Function.INSTANCE.getmoveFarIfPossible(this.fight, this.fighter);
                 }
             } else if(kPair) {
-                int attack = Function.getInstance().attackIfPossibleDisciplepair(this.fight, this.fighter, kimbo);
+                int attack = Function.INSTANCE.getattackIfPossibleDisciplepair(this.fight, this.fighter, kimbo);
 
                 if (attack != 0) {
                     this.fight.getAllGlyphs().stream().filter(entry -> entry.getCell().getId() == this.fighter.getCell().getId()).forEach(entry -> {
                         this.fighter.addBuff(128, 1, 1, 1, true, 3500, "", this.fighter, true);
                         SocketManager.GAME_SEND_GA_PACKET_TO_FIGHT(this.fight, 7, 78, this.fighter.getId() + "", this.fighter.getId() + "," + "" + "," + 1);
                     });
-                    Function.getInstance().moveFarIfPossible(this.fight, this.fighter);
+                    Function.INSTANCE.getmoveFarIfPossible(this.fight, this.fighter);
                 }
             } else if(kImpair) {
-                int attack = Function.getInstance().attackIfPossibleDiscipleimpair(this.fight, this.fighter, kimbo);
+                int attack = Function.INSTANCE.getattackIfPossibleDiscipleimpair(this.fight, this.fighter, kimbo);
 
                 if (attack != 0) {
                     this.fight.getAllGlyphs().stream().filter(entry -> entry.getCell().getId() == this.fighter.getCell().getId()).forEach(entry -> {
                         this.fighter.addBuff(128, 1, 1, 1, true, 3500, "", this.fighter, true);
                         SocketManager.GAME_SEND_GA_PACKET_TO_FIGHT(this.fight, 7, 78, this.fighter.getId() + "", this.fighter.getId() + "," + "" + "," + 1);
                     });
-                    Function.getInstance().moveFarIfPossible(this.fight, this.fighter);
+                    Function.INSTANCE.getmoveFarIfPossible(this.fight, this.fighter);
                 }
             }else {
                 this.stop = true;

@@ -13,7 +13,7 @@ public class Database {
 
     public static boolean launchDatabase() {
         if (!statics.initializeConnection() || !dynamics.initializeConnection()) {
-            Main.stop("Initialization of database connection failed");
+            Main.INSTANCE.stop("Initialization of database connection failed");
             return false;
         }
         return true;

@@ -155,9 +155,9 @@ public class JobAction {
 
             if (SM.getTemplate().getId() == 36) {
                 if (qua > 0)
-                    SM.addXp(player, (long) (this.getXpWin() * Config.getInstance().RATE_JOB * World.world.getConquestBonus(player)));
+                    SM.addXp(player, (long) (this.getXpWin() * Config.INSTANCE.getRATE_JOB * World.world.getConquestBonus(player)));
             } else
-                SM.addXp(player, (long) (this.getXpWin() * Config.getInstance().RATE_JOB * World.world.getConquestBonus(player)));
+                SM.addXp(player, (long) (this.getXpWin() * Config.INSTANCE.getRATE_JOB * World.world.getConquestBonus(player)));
 
             int tID = JobConstant.getObjectByJobSkill(this.id);
 
@@ -346,7 +346,7 @@ public class JobAction {
         boolean success = JobConstant.getChanceByNbrCaseByLvl(SM.get_lvl(), items.size()) >= Formulas.getRandomValue(1, 100);
 
         if (Logging.USE_LOG)
-            Logging.getInstance().write("SecureCraft", this.player.getName() + " à crafter avec " + (success ? "SUCCES" : "ECHEC") + " l'item " + template + " (" + World.world.getObjTemplate(template).getName() + ") pour " + receiver.getName());
+            Logging.INSTANCE.getwrite("SecureCraft", this.player.getName() + " à crafter avec " + (success ? "SUCCES" : "ECHEC") + " l'item " + template + " (" + World.world.getObjTemplate(template).getName() + ") pour " + receiver.getName());
         if (!success) {
             SocketManager.GAME_SEND_Ec_PACKET(this.player, "EF");
             SocketManager.GAME_SEND_Ec_PACKET(receiver, "EF");
@@ -368,7 +368,7 @@ public class JobAction {
             SocketManager.GAME_SEND_IO_PACKET_TO_MAP(this.player.getCurMap(), this.player.getId(), "+" + template);
         }
 
-        int winXP = Formulas.calculXpWinCraft(SM.get_lvl(), this.ingredients.size()) * Config.getInstance().RATE_JOB;
+        int winXP = Formulas.calculXpWinCraft(SM.get_lvl(), this.ingredients.size()) * Config.INSTANCE.getRATE_JOB;
         if (SM.getTemplate().getId() == 28 && winXP == 1)
             winXP = 10;
         if (success) {
@@ -460,7 +460,7 @@ public class JobAction {
             }
 
             if (Logging.USE_LOG)
-                Logging.getInstance().write("Craft", this.player.getName() + " à crafter avec " + (success ? "SUCCES" : "ECHEC") + " l'item " + templateId + " (" + World.world.getObjTemplate(templateId).getName() + ")");
+                Logging.INSTANCE.getwrite("Craft", this.player.getName() + " à crafter avec " + (success ? "SUCCES" : "ECHEC") + " l'item " + templateId + " (" + World.world.getObjTemplate(templateId).getName() + ")");
             if (!success) {
                 SocketManager.GAME_SEND_Ec_PACKET(this.player, "EF");
                 SocketManager.GAME_SEND_IO_PACKET_TO_MAP(this.player.getCurMap(), this.player.getId(), "-" + templateId);
@@ -488,9 +488,9 @@ public class JobAction {
 
             int winXP = 0;
             if (success)
-                winXP = Formulas.calculXpWinCraft(SM.get_lvl(), this.ingredients.size()) * Config.getInstance().RATE_JOB;
+                winXP = Formulas.calculXpWinCraft(SM.get_lvl(), this.ingredients.size()) * Config.INSTANCE.getRATE_JOB;
             else if (!SM.getTemplate().isMaging())
-                winXP = Formulas.calculXpWinCraft(SM.get_lvl(), this.ingredients.size()) * Config.getInstance().RATE_JOB;
+                winXP = Formulas.calculXpWinCraft(SM.get_lvl(), this.ingredients.size()) * Config.INSTANCE.getRATE_JOB;
 
             if (winXP > 0) {
                 SM.addXp(this.player, winXP);
@@ -1224,7 +1224,7 @@ public class JobAction {
             successN = false;
         }
         if (successC || successN) {
-            int winXP = Formulas.calculXpWinFm(objectFm.getTemplate().getLevel(), poid) * Config.getInstance().RATE_JOB;
+            int winXP = Formulas.calculXpWinFm(objectFm.getTemplate().getLevel(), poid) * Config.INSTANCE.getRATE_JOB;
             if (winXP > 0) {
                 SM.addXp(this.player, winXP);
                 ArrayList<JobStat> SMs = new ArrayList<>();
@@ -2437,7 +2437,7 @@ public class JobAction {
                 int newQuantity = this.ingredients.get(runeObject.getPlayerId()) - 1;
                 this.player.removeByTemplateID(runeObject.getTemplate().getId(), 1);
 
-                int winXP = Formulas.calculXpWinFm(gameObject.getTemplate().getLevel(), (int) Math.floor(runeTemplate.getWeight())) * Config.getInstance().RATE_JOB;
+                int winXP = Formulas.calculXpWinFm(gameObject.getTemplate().getLevel(), (int) Math.floor(runeTemplate.getWeight())) * Config.INSTANCE.getRATE_JOB;
                 if (winXP > 0) this.SM.addXp(this.player, winXP);
                 this.player.send("JX|" + this.SM.getTemplate().getId() + ";" + this.SM.get_lvl() + ";" + this.SM.getXpString(";") + ";");
 

@@ -27,50 +27,50 @@ public class IA54 extends AbstractNeedSpell  {
                 if(spellStats.getMaxPO() > maxPo)
                     maxPo = spellStats.getMaxPO();
 
-            Fighter E = Function.getInstance().getNearestEnnemy(this.fight, this.fighter);
-            Fighter L = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 1, maxPo + 1);// pomax +1;
-            Fighter C = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+            Fighter E = Function.INSTANCE.getgetNearestEnnemy(this.fight, this.fighter);
+            Fighter L = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 1, maxPo + 1);// pomax +1;
+            Fighter C = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
 
             if(maxPo == 1) L = null;
             if(C != null && C.isHide()) C = null;
             if(L != null && L.isHide()) L = null;
 
             if(this.fighter.getCurPm(this.fight) > 0 && C == null) {
-                int value = Function.getInstance().moveautourIfPossible(this.fight, this.fighter, E);
+                int value = Function.INSTANCE.getmoveautourIfPossible(this.fight, this.fighter, E);
                 if(value != 0) {
                     time = value;
                     action = true;
-                    L = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 1, maxPo + 1);// pomax +1;
-                    C = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+                    L = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 1, maxPo + 1);// pomax +1;
+                    C = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
                     if(maxPo == 1)
                         L = null;
                 }
             }
             if(this.fighter.getCurPm(this.fight) > 0 && C != null && !action && this.attack > 0) {
-                int value = Function.getInstance().moveFarIfPossible(this.fight, this.fighter);
+                int value = Function.INSTANCE.getmoveFarIfPossible(this.fight, this.fighter);
                 if(value != 0) {
                     time = value;
                     action = true;
-                    L = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 1, maxPo + 1);// pomax +1;
-                    C = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+                    L = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 1, maxPo + 1);// pomax +1;
+                    C = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
                     if(maxPo == 1)
                         L = null;
                 }
             }
             if(this.fighter.getCurPa(this.fight) > 0 && !action) {
-                if (Function.getInstance().invocIfPossible(this.fight, this.fighter, this.invocations)) {
+                if (Function.INSTANCE.getinvocIfPossible(this.fight, this.fighter, this.invocations)) {
                     time = 2000;
                     action = true;
                 }
             }
             if(this.fighter.getCurPa(this.fight) > 0 && L != null && C == null && !action) {
-                int value = Function.getInstance().attackIfPossible(this.fight, this.fighter, this.highests);
+                int value = Function.INSTANCE.getattackIfPossible(this.fight, this.fighter, this.highests);
                 if(value != 0) {
                     time = value;
                     action = true;
                 }
             } else if(this.fighter.getCurPa(this.fight) > 0 && C != null && !action) {
-                int value = Function.getInstance().attackIfPossible(this.fight, this.fighter, this.cacs);
+                int value = Function.INSTANCE.getattackIfPossible(this.fight, this.fighter, this.cacs);
                 if(value != 0) {
                     this.attack++;
                     time = value;
@@ -78,14 +78,14 @@ public class IA54 extends AbstractNeedSpell  {
                 }
             }
             if(this.fighter.getCurPa(this.fight) > 0 && C != null && !action) {
-                int value = Function.getInstance().attackIfPossible(this.fight, this.fighter, this.highests);
+                int value = Function.INSTANCE.getattackIfPossible(this.fight, this.fighter, this.highests);
                 if(value != 0) {
                     time = value;
                     action = true;
                 }
             }
             if(this.fighter.getCurPm(this.fight) > 0 && !action) {
-                int value = Function.getInstance().moveFarIfPossible(this.fight, this.fighter);
+                int value = Function.INSTANCE.getmoveFarIfPossible(this.fight, this.fighter);
                 if(value != 0) time = value;
             }
 

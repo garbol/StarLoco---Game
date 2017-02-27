@@ -17,10 +17,10 @@ public class IA5 extends AbstractIA  {
     @Override
     public void apply() {
         if (!this.stop && this.fighter.canPlay() && this.count > 0) {
-            Fighter target = Function.getInstance().getNearestEnnemy(this.fight, this.fighter);
+            Fighter target = Function.INSTANCE.getgetNearestEnnemy(this.fight, this.fighter);
 
             if (target == null) return;
-            if (!Function.getInstance().moveNearIfPossible(this.fight, this.fighter, target)) this.stop = true;
+            if (!Function.INSTANCE.getmoveNearIfPossible(this.fight, this.fighter, target)) this.stop = true;
 
             addNext(this::decrementCount, 1000);
         } else {
