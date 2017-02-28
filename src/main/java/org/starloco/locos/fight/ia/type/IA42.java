@@ -27,34 +27,34 @@ public class IA42 extends AbstractNeedSpell  {
                 if(spellStats.getMaxPO() > maxPo)
                     maxPo = spellStats.getMaxPO();
 
-            Fighter L = Function.INSTANCE.getgetNearestinvocateurnbrcasemax(this.fight, this.fighter, 1, maxPo + 1);// pomax +1;
+            Fighter L = Function.getInstance().getNearestinvocateurnbrcasemax(this.fight, this.fighter, 1, maxPo + 1);// pomax +1;
             if(L != null) if(L.isHide()) L = null;
 
             if(this.fighter.getCurPm(this.fight) > 0 && L == null) {
-                int value = Function.INSTANCE.getmoveautourIfPossible(this.fight, this.fighter, L);
+                int value = Function.getInstance().moveautourIfPossible(this.fight, this.fighter, L);
                 if(value != 0) {
                     time = value;
                     action = true;
-                    L = Function.INSTANCE.getgetNearestinvocateurnbrcasemax(this.fight, this.fighter, 1, maxPo + 1);// pomax +1;
+                    L = Function.getInstance().getNearestinvocateurnbrcasemax(this.fight, this.fighter, 1, maxPo + 1);// pomax +1;
                     if(maxPo == 1) L = null;
                 }
             }
             if(this.fighter.getCurPm(this.fight) > 0 && !action && this.boost) {
-                int value = Function.INSTANCE.getmoveFarIfPossible(this.fight, this.fighter);
+                int value = Function.getInstance().moveFarIfPossible(this.fight, this.fighter);
                 if(value != 0) {
                     time = value;
                     action = true;
                 }
             }
             if(this.fighter.getCurPa(this.fight) > 0 && !action && L != null && !this.boost) {
-                if (Function.INSTANCE.getpmgongon(this.fight, this.fighter, L) != 0) {
+                if (Function.getInstance().pmgongon(this.fight, this.fighter, L) != 0) {
                     time = 1000;
                     action = true;
                     this.boost = true;
                 }
             }
             if(this.fighter.getCurPa(this.fight) > 0 && !action && !this.heal) {
-                if (Function.INSTANCE.getHealIfPossible(this.fight, this.fighter) != 0) {
+                if (Function.getInstance().HealIfPossible(this.fight, this.fighter) != 0) {
                     time = 2000;
                     action = true;
                     this.heal = true;
@@ -62,7 +62,7 @@ public class IA42 extends AbstractNeedSpell  {
             }
 
             if(this.fighter.getCurPm(this.fight) > 0 && !action) {
-                int value = Function.INSTANCE.getmoveFarIfPossible(this.fight, this.fighter);
+                int value = Function.getInstance().moveFarIfPossible(this.fight, this.fighter);
                 if(value != 0) time = value;
             }
 

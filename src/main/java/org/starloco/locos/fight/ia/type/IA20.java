@@ -23,8 +23,8 @@ public class IA20 extends AbstractIA  {
     @Override
     public void apply() {
         if (!this.stop && this.fighter.canPlay() && this.count > 0) {
-            Fighter nearestEnnemy = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 5);
-            Fighter highestEnnemy = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 30);
+            Fighter nearestEnnemy = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 5);
+            Fighter highestEnnemy = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 30);
             List<Short> cells = new ArrayList<>();
             int attack = 0, tp = 0;
             boolean action = false;
@@ -32,10 +32,10 @@ public class IA20 extends AbstractIA  {
             cells.addAll(this.fight.getAllGlyphs().stream().filter(glyph -> glyph != null && glyph.getCaster().getId() == this.fighter.getId()).map(glyph -> (short) glyph.getCell().getId()).collect(Collectors.toList()));
 
             if(nearestEnnemy == null)
-                if(Function.INSTANCE.getmoveNearIfPossible(this.fight, this.fighter, highestEnnemy))
+                if(Function.getInstance().moveNearIfPossible(this.fight, this.fighter, highestEnnemy))
                     action = true;
             if(this.attack == 0 && !action)
-                attack = Function.INSTANCE.getattackIfPossibleKaskargo(this.fight, this.fighter, this.fighter);
+                attack = Function.getInstance().attackIfPossibleKaskargo(this.fight, this.fighter, this.fighter);
 
             if(attack != 0) {
                 this.attack++;
@@ -45,10 +45,10 @@ public class IA20 extends AbstractIA  {
 
             if(!action && !cells.isEmpty()) {
                 if(cells.contains((short) this.fighter.getCell().getId()))
-                    tp = Function.INSTANCE.gettpIfPossibleKaskargo(this.fight, this.fighter, nearestEnnemy);
+                    tp = Function.getInstance().tpIfPossibleKaskargo(this.fight, this.fighter, nearestEnnemy);
             }
             if(tp != 0) action = true;
-            if(!action) Function.INSTANCE.getmoveNearIfPossible(this.fight, this.fighter, highestEnnemy);
+            if(!action) Function.getInstance().moveNearIfPossible(this.fight, this.fighter, highestEnnemy);
 
             addNext(this::decrementCount, 1000);
         } else {

@@ -352,7 +352,7 @@ public class Formulas {
             return 100;
         if (looser.contains(F))
             base = -base;
-        return base * Config.INSTANCE.getRATE_HONOR;
+        return base * Config.INSTANCE.getRATE_HONOR();
     }
 
     public static int calculFinalDommage(Fight fight, Fighter caster, Fighter target, int statID, int jet, boolean isHeal, boolean isCaC, int spellid) {
@@ -812,13 +812,13 @@ public class Formulas {
                                   int maxk, int mink) {
         maxk++;
         int rkamas = (int) (Math.random() * (maxk - mink)) + mink;
-        return rkamas * Config.INSTANCE.getRATE_KAMAS;
+        return rkamas * Config.INSTANCE.getRATE_KAMAS();
     }
 
     public static int getKamasWinPerco(int maxk, int mink) {
         maxk++;
         int rkamas = (int) (Math.random() * (maxk - mink)) + mink;
-        return rkamas * Config.INSTANCE.getRATE_KAMAS;
+        return rkamas * Config.INSTANCE.getRATE_KAMAS();
     }
 
     public static Couple<Integer, Integer> decompPierreAme(GameObject toDecomp) {
@@ -1028,7 +1028,7 @@ public class Formulas {
 
         if (mStat > 1.2)
             mStat = 1.2F;
-        float a = ((((((WeightTotalBase + diff) * coef) * mStat) * c) * x) * Config.INSTANCE.getRATE_FM);
+        float a = ((((((WeightTotalBase + diff) * coef) * mStat) * c) * x));
         float b = (float) (Math.sqrt(currentWeithTotal + currentWeightStats) + weight);
         if (b < 1.0)
             b = 1.0F;

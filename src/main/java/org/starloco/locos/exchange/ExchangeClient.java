@@ -8,6 +8,7 @@ import org.apache.mina.core.service.IoConnector;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.slf4j.LoggerFactory;
+import org.starloco.locos.kernel.Config;
 import org.starloco.locos.kernel.Main;
 
 import java.net.InetSocketAddress;
@@ -40,7 +41,7 @@ public class ExchangeClient {
 
     public void initialize() {
         try {
-            this.connectFuture = this.ioConnector.connect(new InetSocketAddress(Main.INSTANCE.getExchangeIp(), Main.INSTANCE.getExchangePort()));
+            this.connectFuture = this.ioConnector.connect(new InetSocketAddress(Config.INSTANCE.getExchangeIp(), Config.INSTANCE.getExchangePort()));
         } catch (Exception e) {
             ExchangeClient.logger.error("The game server don't found the login server. Exception : " + e.getMessage());
             try { Thread.sleep(2000); } catch(Exception ignored) {}
@@ -50,17 +51,17 @@ public class ExchangeClient {
         try { Thread.sleep(3000); } catch(Exception ignored) {}
 
         if (!ioConnector.isActive()) {
-            if (!Main.INSTANCE.getIsRunning()) return;
+            if (!Config.INSTANCE.isRunning()) return;
 
             ExchangeClient.logger.error("Try to connect to the login server..");
             restart();
             return;
         }
-        ExchangeClient.logger.info("The exchange client was connected on address : " + Main.INSTANCE.getExchangeIp() + ":" + Main.INSTANCE.getExchangePort());
+        ExchangeClient.logger.info("The exchange client was connected on address : " + Config.INSTANCE.getExchangeIp() + ":" + Config.INSTANCE.getExchangePort());
     }
 
     public void restart() {
-        if (!Main.INSTANCE.getIsRunning()) return;
+        if (!Config.INSTANCE.isRunning()) return;
 
         ExchangeClient.logger.error("The login server was not found..");
 

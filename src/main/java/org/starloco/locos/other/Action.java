@@ -650,7 +650,7 @@ public class Action {
                 break;
 
             case 13: //Reset Carac incarnam
-                if (player.getLevel() <= 30 || Config.INSTANCE.getRESET_LIMIT) {
+                if (player.getLevel() <= 30) {
                     try {
                         player.getStats().addOneStat(125, -player.getStats().getEffect(125));
                         player.getStats().addOneStat(124, -player.getStats().getEffect(124));
@@ -671,7 +671,7 @@ public class Action {
                 break;
 
             case 14://Ouvrir l'interface d'oublie de sort incarnam
-                if (player.getLevel() <= 30 || Main.INSTANCE.getServerId() == 38 || Config.INSTANCE.getRESET_LIMIT) {
+                if (player.getLevel() <= 30) {
                     player.setExchangeAction(new ExchangeAction<>(ExchangeAction.FORGETTING_SPELL, 0));
                     SocketManager.GAME_SEND_FORGETSPELL_INTERFACE('+', player);
                 } else {
@@ -1455,14 +1455,14 @@ public class Action {
                 int mapId2 = Integer.parseInt(args.split(",")[1]);
                 if (player.get_align() > 0)
                     return true;
-                if (type2 == 1 && (player.getCurMap().getId() == mapId2 || Main.INSTANCE.getServerId() == 38)) {
+                if (type2 == 1 && player.getCurMap().getId() == mapId2) {
                     if (player.hasItemTemplate(42, 10)) {
                         player.removeByTemplateID(42, 10);
                         SocketManager.GAME_SEND_Im_PACKET(player, "022;" + 42 + "~" + 10);
                         player.modifAlignement((byte) 1);
                     }
                 }
-                if (type2 == 2 && (player.getCurMap().getId() == mapId2 || Main.INSTANCE.getServerId() == 38)) {
+                if (type2 == 2 && player.getCurMap().getId() == mapId2) {
                     if (player.hasItemTemplate(95, 10)) {
                         player.removeByTemplateID(95, 10);
                         SocketManager.GAME_SEND_Im_PACKET(player, "022;" + 95 + "~" + 10);

@@ -17,19 +17,19 @@ public class IA6 extends AbstractIA  {
     @Override
     public void apply() {
         if (!this.stop && this.fighter.canPlay() && this.count > 0) {
-            if (!Function.INSTANCE.getinvocIfPossible(this.fight, this.fighter)) {
-                Fighter friend = Function.INSTANCE.getgetNearestFriend(this.fight, this.fighter);
-                Fighter ennemy = Function.INSTANCE.getgetNearestEnnemy(this.fight, this.fighter);
+            if (!Function.getInstance().invocIfPossible(this.fight, this.fighter)) {
+                Fighter friend = Function.getInstance().getNearestFriend(this.fight, this.fighter);
+                Fighter ennemy = Function.getInstance().getNearestEnnemy(this.fight, this.fighter);
 
-                if (!Function.INSTANCE.getHealIfPossible(this.fight, this.fighter, false)) {
-                    if (!Function.INSTANCE.getbuffIfPossible(this.fight, this.fighter, friend)) {
-                        if (!Function.INSTANCE.getbuffIfPossible(this.fight, this.fighter, this.fighter)) {
-                            if (!Function.INSTANCE.getHealIfPossible(this.fight, this.fighter, true)) {
-                                int attack = Function.INSTANCE.getattackIfPossibleAll(fight, this.fighter, ennemy);
+                if (!Function.getInstance().HealIfPossible(this.fight, this.fighter, false)) {
+                    if (!Function.getInstance().buffIfPossible(this.fight, this.fighter, friend)) {
+                        if (!Function.getInstance().buffIfPossible(this.fight, this.fighter, this.fighter)) {
+                            if (!Function.getInstance().HealIfPossible(this.fight, this.fighter, true)) {
+                                int attack = Function.getInstance().attackIfPossibleAll(fight, this.fighter, ennemy);
 
                                 if (attack != 0) {
                                     if (attack == 5) this.stop = true;
-                                    if (Function.INSTANCE.getmoveFarIfPossible(this.fight, this.fighter) != 0) this.stop = true;
+                                    if (Function.getInstance().moveFarIfPossible(this.fight, this.fighter) != 0) this.stop = true;
                                 }
                             }
                         }

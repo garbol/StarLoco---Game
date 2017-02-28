@@ -20,7 +20,9 @@ object Config {
     var DEBUG = ConfigReader.data[ConfigReader.console.debug]
     var LOGS = ConfigReader.data[ConfigReader.console.logs]
 
-    var ONLY_LOCAL = false
+    var isSaving = false
+    var isRunning = false
+
     var ENCRYPT_PACKET = ConfigReader.data[ConfigReader.options.encryptPacket]
     var TIME_PER_EVENT: Short = ConfigReader.data[ConfigReader.options.event.timePerEvent].toShort()
 
@@ -41,10 +43,12 @@ object Config {
     var gamePort: Int = ConfigReader.data[ConfigReader.server.port]
     var exchangeIp: String = ConfigReader.data[ConfigReader.exchange.host]
     var loginHostDB: String = ConfigReader.data[ConfigReader.database.login.host]
+    var loginPortDB: Int = ConfigReader.data[ConfigReader.database.login.port]
     var loginNameDB: String = ConfigReader.data[ConfigReader.database.login.name]
     var loginUserDB: String = ConfigReader.data[ConfigReader.database.login.user]
     var loginPassDB: String = ConfigReader.data[ConfigReader.database.login.pass]
     var hostDB: String? = ConfigReader.data[ConfigReader.database.game.host]
+    var portDB: Int = ConfigReader.data[ConfigReader.database.login.port]
     var nameDB: String? = ConfigReader.data[ConfigReader.database.game.name]
     var userDB: String? = ConfigReader.data[ConfigReader.database.game.user]
     var passDB: String? = ConfigReader.data[ConfigReader.database.game.pass]
@@ -52,8 +56,11 @@ object Config {
 
     var SERVER_ID: Int = ConfigReader.data[ConfigReader.server.id]
     var SERVER_KEY: String = ConfigReader.data[ConfigReader.server.key]
+    var subscription = ConfigReader.data[ConfigReader.options.subscription]
 
-    var startKamas: Int = ConfigReader.data[ConfigReader.options.start.kamas]
+    var startKamas: Long = ConfigReader.data[ConfigReader.options.start.kamas]
     var startLevel: Int = ConfigReader.data[ConfigReader.options.start.level]
+
+
 
 }

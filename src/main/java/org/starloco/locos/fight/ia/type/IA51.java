@@ -20,46 +20,46 @@ public class IA51 extends AbstractNeedSpell  {
             int time = 100;
             boolean action = false;
 
-            Fighter ennemy = Function.INSTANCE.getgetNearestEnnemy(this.fight, this.fighter);
-            Fighter C = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
-            Fighter A = Function.INSTANCE.getgetNearestAminbrcasemax(this.fight, this.fighter, 0, 5);//2 = po min 1 + 1;
-            Fighter A1 = Function.INSTANCE.getgetNearestAminbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+            Fighter ennemy = Function.getInstance().getNearestEnnemy(this.fight, this.fighter);
+            Fighter C = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+            Fighter A = Function.getInstance().getNearestAminbrcasemax(this.fight, this.fighter, 0, 5);//2 = po min 1 + 1;
+            Fighter A1 = Function.getInstance().getNearestAminbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
 
             if(C != null && C.isHide()) C = null;
             if(this.fighter.getCurPm(this.fight) > 0 && C == null && A == null) {
-                int value = Function.INSTANCE.getmoveautourIfPossible(this.fight, this.fighter, A);
+                int value = Function.getInstance().moveautourIfPossible(this.fight, this.fighter, A);
                 if(value != 0) {
                     time = value;
                     action = true;
-                    C = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
-                    A = Function.INSTANCE.getgetNearestAminbrcasemax(this.fight, this.fighter, 0, 5);//2 = po min 1 + 1;
-                    A1 = Function.INSTANCE.getgetNearestAminbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+                    C = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+                    A = Function.getInstance().getNearestAminbrcasemax(this.fight, this.fighter, 0, 5);//2 = po min 1 + 1;
+                    A1 = Function.getInstance().getNearestAminbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
                 }
             } else if(this.fighter.getCurPm(this.fight) > 0 && C == null) {
-                int value = Function.INSTANCE.getmoveautourIfPossible(this.fight, this.fighter, ennemy);
+                int value = Function.getInstance().moveautourIfPossible(this.fight, this.fighter, ennemy);
                 if(value != 0) {
                     time = value;
                     action = true;
-                    C = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
-                    A = Function.INSTANCE.getgetNearestAminbrcasemax(this.fight, this.fighter, 0, 5);//2 = po min 1 + 1;
-                    A1 = Function.INSTANCE.getgetNearestAminbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+                    C = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+                    A = Function.getInstance().getNearestAminbrcasemax(this.fight, this.fighter, 0, 5);//2 = po min 1 + 1;
+                    A1 = Function.getInstance().getNearestAminbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
                 }
             }
             if(this.fighter.getCurPa(this.fight) > 0 && !action && A1 != null) {
-                if (Function.INSTANCE.getbuffIfPossible(this.fight, this.fighter, A1, this.buffs)) {
+                if (Function.getInstance().buffIfPossible(this.fight, this.fighter, A1, this.buffs)) {
                     time = 1000;
                     action = true;
                 }
             }
             if(this.fighter.getCurPa(this.fight) > 0 && C != null && !action) {
-                int value = Function.INSTANCE.getattackIfPossibleBuveur(this.fight, this.fighter, C);
+                int value = Function.getInstance().attackIfPossibleBuveur(this.fight, this.fighter, C);
                 if(value != 0) {
                     time = value;
                     action = true;
                 }
             }
             if(this.fighter.getCurPm(this.fight) > 0 && !action) {
-                int value = Function.INSTANCE.getmoveautourIfPossible(this.fight, this.fighter, ennemy);
+                int value = Function.getInstance().moveautourIfPossible(this.fight, this.fighter, ennemy);
                 if(value != 0) time = value;
             }
         

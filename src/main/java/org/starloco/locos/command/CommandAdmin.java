@@ -75,11 +75,11 @@ public class CommandAdmin extends AdminUser {
 
     public void command(String command, String[] infos, String msg) {
         if (command.equalsIgnoreCase("LOG")) {
-            Main.INSTANCE.setModDebug(!Main.INSTANCE.getModDebug());
+            Config.INSTANCE.setDEBUG(!Config.INSTANCE.getDEBUG());
             this.sendMessage("Les logs console sont : "
-                    + (Main.INSTANCE.getModDebug() ? "active" : "disable"));
+                    + (Config.INSTANCE.getDEBUG() ? "active" : "disable"));
             if(infos.length > 1) {
-                EventManager.INSTANCE.getstartNewEvent();
+                EventManager.getInstance().startNewEvent();
             }
             return;
         } else if (command.equalsIgnoreCase("CHALL")) {
@@ -1469,7 +1469,7 @@ public class CommandAdmin extends AdminUser {
             this.sendMessage("Vous avez applique le trigger.");
             return;
         } else if (command.equalsIgnoreCase("INFOS")) {
-            long uptime = System.currentTimeMillis() - Config.INSTANCE.getstartTime;
+            long uptime = System.currentTimeMillis() - Config.INSTANCE.getStartTime();
             int day = (int) (uptime / (1000 * 3600 * 24));
             uptime %= (1000 * 3600 * 24);
             int hour = (int) (uptime / (1000 * 3600));
@@ -1649,7 +1649,7 @@ public class CommandAdmin extends AdminUser {
             this.sendMessage("Le maximum de joueur a été fixer à : " + i);
             GameServer.MAX_PLAYERS = i;
             return;
-        } else if (command.equalsIgnoreCase("SAVE") && !Main.INSTANCE.getIsSaving()) {
+        } else if (command.equalsIgnoreCase("SAVE") && !Config.INSTANCE.isSaving()) {
             WorldSave.cast(1);
             String mess = "Sauvegarde lancee!";
             this.sendMessage(mess);

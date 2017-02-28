@@ -7,6 +7,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.LoggerFactory;
 import org.starloco.locos.database.Database;
 import org.starloco.locos.database.statics.data.*;
+import org.starloco.locos.kernel.Config;
 import org.starloco.locos.kernel.Main;
 
 public class StaticsDatabase {
@@ -65,11 +66,11 @@ public class StaticsDatabase {
 
             HikariConfig config = new HikariConfig();
             config.setDataSourceClassName("org.mariadb.jdbc.Driver");
-            config.addDataSourceProperty("serverName", Main.INSTANCE.getLoginHostDB());
-            config.addDataSourceProperty("port", Main.INSTANCE.getLoginPortDB());
-            config.addDataSourceProperty("databaseName", Main.INSTANCE.getLoginNameDB());
-            config.addDataSourceProperty("user", Main.INSTANCE.getLoginUserDB());
-            config.addDataSourceProperty("password", Main.INSTANCE.getLoginPassDB());
+            config.addDataSourceProperty("serverName", Config.INSTANCE.getLoginHostDB());
+            config.addDataSourceProperty("port", Config.INSTANCE.getLoginPortDB());
+            config.addDataSourceProperty("databaseName", Config.INSTANCE.getLoginNameDB());
+            config.addDataSourceProperty("user", Config.INSTANCE.getLoginUserDB());
+            config.addDataSourceProperty("password", Config.INSTANCE.getLoginPassDB());
             config.setAutoCommit(true); // AutoCommit, c'est cool
             config.setMaximumPoolSize(20);
             config.setMinimumIdle(1);

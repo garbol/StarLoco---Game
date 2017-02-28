@@ -486,12 +486,12 @@ public class Player {
         int startCell = Config.INSTANCE.getSTART_CELL();
         
         Player perso = new Player(Database.getStatics().getPlayerData().getNextId(), name, -1, sexe, classe, color1, color2, color3, Config.INSTANCE.getStartKamas(), ((Config.INSTANCE.getStartLevel() - 1)), ((Config.INSTANCE.getStartLevel() - 1) * 5), 10000, Config.INSTANCE.getStartLevel(), World.world.getPersoXpMin(Config.INSTANCE.getStartLevel()), 100, Integer.parseInt(classe
-                + "" + sexe), (byte) 0, compte.getId(), new HashMap<>(), (byte) 1, (byte) 0, (byte) 0, "*#%!pi$:?", (startMap != 0 ? (short) startMap : Constant.getStartMap(classe)), (startCell != 0 ? (short) startCell : Constant.getStartCell(classe)),
+                + "" + sexe), (byte) 0, compte.getId(), new HashMap<Integer, Integer>(), (byte) 1, (byte) 0, (byte) 0, "*#%!pi$:?", (startMap != 0 ? (short) startMap : Constant.getStartMap(classe)), (startCell != 0 ? (short) startCell : Constant.getStartCell(classe)),
                 //(short)6824,
                 //224,
                 "", "", 100, "", (startMap != 0 ? (short) startMap : Constant.getStartMap(classe))
                 + ","
-                + (startCell != 0 ? (short) startCell : Constant.getStartCell(classe)), "", 0, -1, 0, 0, 0, z, (byte) 0, 0, "0;0", "", (Config.INSTANCE.getALL_EMOTE()) ? "0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21" : "0"), 0, true, "118,0;119,0;123,0;124,0;125,0;126,0", 0, false, "0,0,0,0", (byte) 0, 0);
+                + (startCell != 0 ? (short) startCell : Constant.getStartCell(classe)), "", 0, -1, 0, 0, 0, z, (byte) 0, 0, "0;0", "", Config.INSTANCE.getALL_EMOTE() ? "0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21" : "0", 0, true, "118,0;119,0;123,0;124,0;125,0;126,0", 0, false, "0,0,0,0", (byte) 0, 0);
         perso.emotes.add(1);
         perso._sorts = Constant.getStartSorts(classe);
         for (int a = 1; a <= perso.getLevel(); a++)
@@ -3668,7 +3668,7 @@ public class Player {
     public void toogleOnMount() {
         if (_mount == null || this.isMorph() || this.getLevel() < 60)
             return;
-        if (Main.INSTANCE.getUseSubscribe()) {
+        if (Config.INSTANCE.getSubscription()) {
             SocketManager.GAME_SEND_Im_PACKET(this, "1115");
             return;
         }
@@ -3954,7 +3954,7 @@ public class Player {
     }
 
     public boolean verifOtomaiZaap() {
-        return Config.INSTANCE.getALL_ZAAP || !(this.getCurMap().getId() == 10643 || this.getCurMap().getId() == 11210)
+        return Config.INSTANCE.getALL_ZAAP() || !(this.getCurMap().getId() == 10643 || this.getCurMap().getId() == 11210)
                 || World.world.getConditionManager().validConditions(this, "QT=231") && World.world.getConditionManager().validConditions(this, "QT=232");
     }
 
@@ -4537,7 +4537,7 @@ public class Player {
     public void setGhost() {
         if (isOnMount())
             toogleOnMount();
-        if(Config.INSTANCE.getHEROIC) {
+        if(Config.INSTANCE.getHEROIC()) {
             this.setGfxId(Integer.parseInt(this.getClasse() + "" + this.getSexe()));
             this.send("GO");
             return;
@@ -5483,11 +5483,11 @@ public class Player {
     }
 
     public boolean isSubscribe() {
-        return !Main.INSTANCE.getUseSubscribe() || this.getAccount().isSubscribe();
+        return !Config.INSTANCE.getSubscription() || this.getAccount().isSubscribe();
     }
 
     public boolean isInAreaNotSubscribe() {
-        boolean ok = Main.INSTANCE.getUseSubscribe();
+        boolean ok = Config.INSTANCE.getSubscription();
 
         if (this.curMap == null)
             return false;

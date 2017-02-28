@@ -19,18 +19,18 @@ public class IA10 extends AbstractIA  {
     @Override
     public void apply() {
         if (count > 0 && this.fighter.canPlay() && !this.stop) {
-            Fighter target = Function.INSTANCE.getgetNearestEnnemy(fight, this.fighter);
+            Fighter target = Function.getInstance().getNearestEnnemy(fight, this.fighter);
             if (target == null) return;
 
-            int value = Function.INSTANCE.getmoveToAttackIfPossible(fight, this.fighter), cellId = value - (value / 1000) * 1000;
+            int value = Function.getInstance().moveToAttackIfPossible(fight, this.fighter), cellId = value - (value / 1000) * 1000;
             SortStats spellStats = this.fighter.getMob().getSpells().get(value / 1000);
 
             if (cellId != -1) {
                 if (fight.canCastSpell1(this.fighter, spellStats, this.fighter.getCell(), cellId))
                     fight.tryCastSpell(this.fighter, spellStats, cellId);
             } else if (this.fighter.haveState(Constant.ETAT_PORTE)) {
-                if (!Function.INSTANCE.getHealIfPossible(fight, this.fighter, true))
-                    if (!Function.INSTANCE.getHealIfPossible(fight, this.fighter, false))
+                if (!Function.getInstance().HealIfPossible(fight, this.fighter, true))
+                    if (!Function.getInstance().HealIfPossible(fight, this.fighter, false))
                         this.stop = true;
             } else {
                 this.stop = true;

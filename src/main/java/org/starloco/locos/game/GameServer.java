@@ -9,6 +9,7 @@ import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import org.starloco.locos.client.Account;
 import org.starloco.locos.client.Player;
 import org.starloco.locos.game.world.World;
+import org.starloco.locos.kernel.Config;
 import org.starloco.locos.kernel.Main;
 
 import java.io.IOException;
@@ -37,14 +38,14 @@ public class GameServer {
             return;
 
         try {
-            this.acceptor.bind(new InetSocketAddress(Main.INSTANCE.getGamePort()));
+            this.acceptor.bind(new InetSocketAddress(Config.INSTANCE.getGamePort()));
         } catch (IOException e) {
-            Main.INSTANCE.getLogger().error("The address '" + Main.INSTANCE.getGamePort() + "' is already in use..");
+            Main.INSTANCE.getLogger().error("The address '" + Config.INSTANCE.getGamePort() + "' is already in use..");
             this.close();
             try { Thread.sleep(3000); } catch(Exception ignored) {}
             this.initialize();
         } finally {
-            Main.INSTANCE.getLogger().info("The game server started on address : " + Main.INSTANCE.getIp() + ":" + Main.INSTANCE.getGamePort());
+            Main.INSTANCE.getLogger().info("The game server started on address : " + Config.INSTANCE.getIp() + ":" + Config.INSTANCE.getGamePort());
         }
     }
 

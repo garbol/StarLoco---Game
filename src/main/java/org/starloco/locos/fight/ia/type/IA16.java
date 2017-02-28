@@ -18,19 +18,19 @@ public class IA16 extends AbstractIA  {
     @Override
     public void apply() {
         if (this.count > 0 && this.fighter.canPlay() && !this.stop) {
-            Fighter target = Function.INSTANCE.getgetNearestEnnemy(this.fight, this.fighter);
+            Fighter target = Function.getInstance().getNearestEnnemy(this.fight, this.fighter);
 
             if (target == null) return;
 
-            int value = Function.INSTANCE.getmoveToAttackIfPossible(this.fight, this.fighter), cellId = value - (value / 1000) * 1000;;
+            int value = Function.getInstance().moveToAttackIfPossible(this.fight, this.fighter), cellId = value - (value / 1000) * 1000;;
             SortStats spellStats = this.fighter.getMob().getSpells().get(value / 1000);
 
             if (cellId != -1) {
                 if (this.fight.canCastSpell1(this.fighter, spellStats, this.fighter.getCell(), cellId)) {
                     this.fight.tryCastSpell(this.fighter, spellStats, cellId);
                 } else {
-                    if (!Function.INSTANCE.getmoveNearIfPossible(this.fight, this.fighter, target))
-                        if (!Function.INSTANCE.getinvocIfPossible(this.fight, this.fighter))
+                    if (!Function.getInstance().moveNearIfPossible(this.fight, this.fighter, target))
+                        if (!Function.getInstance().invocIfPossible(this.fight, this.fighter))
                             this.stop = true;
                 }
             }

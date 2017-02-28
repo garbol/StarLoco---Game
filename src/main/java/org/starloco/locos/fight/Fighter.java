@@ -12,6 +12,7 @@ import org.starloco.locos.fight.spells.LaunchedSpell;
 import org.starloco.locos.fight.spells.Spell;
 import org.starloco.locos.fight.spells.SpellEffect;
 import org.starloco.locos.game.world.World;
+import org.starloco.locos.kernel.Config;
 import org.starloco.locos.kernel.Constant;
 import org.starloco.locos.kernel.Main;
 import org.starloco.locos.guild.Guild;
@@ -469,7 +470,7 @@ public class Fighter implements Comparable<Fighter> {
 
         //Si c'est le jouer actif qui s'autoBuff, on ajoute 1 a la durée
         this.fightBuffs.add(new SpellEffect(id,val,(addingTurnIfCanPlay && this.canPlay?duration+1:duration),turns,debuff,caster,args,spellID));
-        if(Main.INSTANCE.getModDebug())
+        if(Config.INSTANCE.getDEBUG())
             System.out.println("- Ajout du Buff "+id+" sur le personnage fighter ("+this.getId()+") val : "+val+" duration : "+duration+" turns : "+turns+" debuff : "+debuff+" spellid : "+spellID+" args : "+args+" !");
 
         switch(id) {

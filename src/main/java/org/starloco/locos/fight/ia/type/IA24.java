@@ -17,11 +17,11 @@ public class IA24 extends AbstractIA  {
     @Override
     public void apply() {
         if (!this.stop && this.fighter.canPlay() && this.count > 0) {
-            Fighter friend = Function.INSTANCE.getgetNearestFriendNoInvok(this.fight, this.fighter);
+            Fighter friend = Function.getInstance().getNearestFriendNoInvok(this.fight, this.fighter);
 
-            if (!Function.INSTANCE.getmoveNearIfPossible(this.fight, this.fighter, friend))
-                if (!Function.INSTANCE.getbuffIfPossible(this.fight, this.fighter, friend))
-                    Function.INSTANCE.getmoveFarIfPossible(this.fight, this.fighter);
+            if (!Function.getInstance().moveNearIfPossible(this.fight, this.fighter, friend))
+                if (!Function.getInstance().buffIfPossible(this.fight, this.fighter, friend))
+                    Function.getInstance().moveFarIfPossible(this.fight, this.fighter);
 
             addNext(this::decrementCount, 800);
         } else {

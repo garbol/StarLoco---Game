@@ -18,7 +18,7 @@ public class IA8 extends AbstractNeedSpell  {
     @Override
     public void apply() {
         if (!this.stop && this.fighter.canPlay() && this.count > 0) {
-            Fighter ennemy = Function.INSTANCE.getgetNearestEnnemy(this.fight, this.fighter);
+            Fighter ennemy = Function.getInstance().getNearestEnnemy(this.fight, this.fighter);
             boolean action = false;
             int PA = 0, PM = this.fighter.getCurPm(this.fight), maxPo = 1, time = 100;
 
@@ -26,14 +26,14 @@ public class IA8 extends AbstractNeedSpell  {
                 if(spellStats != null && spellStats.getMaxPO() > maxPo)
                     maxPo = spellStats.getMaxPO();
 
-            Fighter target = Function.INSTANCE.getgetNearestInvocnbrcasemax(this.fight, this.fighter, 0, maxPo);//2 = po min 1 + 1;
+            Fighter target = Function.getInstance().getNearestInvocnbrcasemax(this.fight, this.fighter, 0, maxPo);//2 = po min 1 + 1;
 
             if(PM > 0 && target == null) {
-                int num = Function.INSTANCE.getmoveautourIfPossible(this.fight, this.fighter, ennemy);
+                int num = Function.getInstance().moveautourIfPossible(this.fight, this.fighter, ennemy);
                 if(num != 0) {
                     time = num;
                     action = true;
-                    target = Function.INSTANCE.getgetNearestInvocnbrcasemax(this.fight, this.fighter, 0, maxPo);//2 = po min 1 + 1;
+                    target = Function.getInstance().getNearestInvocnbrcasemax(this.fight, this.fighter, 0, maxPo);//2 = po min 1 + 1;
                 }
             }
 
@@ -41,20 +41,20 @@ public class IA8 extends AbstractNeedSpell  {
             PM = this.fighter.getCurPm(this.fight);
 
             if(PA > 0 && !action) {
-                if (Function.INSTANCE.getinvocIfPossibleloin(this.fight, this.fighter, this.invocations)) {
+                if (Function.getInstance().invocIfPossibleloin(this.fight, this.fighter, this.invocations)) {
                     time = 400;
                     action = true;
                 }
             }
             if(PA > 0 && !action && target != null) {
-                if (Function.INSTANCE.getbuffIfPossible(this.fight, this.fighter, target, this.buffs)) {
+                if (Function.getInstance().buffIfPossible(this.fight, this.fighter, target, this.buffs)) {
                     time = 400;
                     action = true;
                 }
             }
 
             if(PM > 0 && !action) {
-                int num = Function.INSTANCE.getmoveFarIfPossible(this.fight, this.fighter);
+                int num = Function.getInstance().moveFarIfPossible(this.fight, this.fighter);
                 if(num != 0) time = num;
             }
 

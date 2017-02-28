@@ -33,7 +33,7 @@ public class NpcData extends AbstractDAO<Object> {
             while (RS.next()) {
                 GameMap map = World.world.getMap(RS.getShort("mapid"));
                 if (map == null) continue;
-                if(!Config.INSTANCE.getNOEL && RS.getInt("npcid") == 795) continue;
+                if(!Config.INSTANCE.getNOEL() && RS.getInt("npcid") == 795) continue;
                 map.addNpc(RS.getInt("npcid"), RS.getShort("cellid"), RS.getInt("orientation"));
                 nbr++;
             }

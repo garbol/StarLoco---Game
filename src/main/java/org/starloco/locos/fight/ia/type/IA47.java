@@ -21,13 +21,13 @@ public class IA47 extends AbstractNeedSpell  {
             boolean action = false;
 
             if(this.fighter.getCurPa(this.fight) > 0) {
-                if (Function.INSTANCE.getbuffIfPossible(this.fight, this.fighter, this.fighter, this.buffs)) {
+                if (Function.getInstance().buffIfPossible(this.fight, this.fighter, this.fighter, this.buffs)) {
                     time = 1000;
                     action = true;
                 }
             }
             if(this.fighter.getCurPm(this.fight) > 0 && !action) {
-                int value = Function.INSTANCE.getmoveFarIfPossible(this.fight, this.fighter);
+                int value = Function.getInstance().moveFarIfPossible(this.fight, this.fighter);
                 if(value != 0) time = value;
             }
 

@@ -6,6 +6,7 @@ import org.starloco.locos.database.Database;
 import org.starloco.locos.exchange.transfer.DataType;
 import org.starloco.locos.game.GameServer;
 import org.starloco.locos.game.world.World;
+import org.starloco.locos.kernel.Config;
 import org.starloco.locos.kernel.Main;
 
 import java.text.SimpleDateFormat;
@@ -42,12 +43,12 @@ public class ExchangePacketHandler {
                                 switch (packet.charAt(2)) {
                                     case '?': //Required
                                         int i = 50000 - Main.INSTANCE.getGameServer().getClients().size();
-                                        Main.INSTANCE.getExchangeClient().send("SK" + Main.INSTANCE.getServerId() + ";" + Main.INSTANCE.getKey() + ";" + i);
+                                        Main.INSTANCE.getExchangeClient().send("SK" + Config.INSTANCE.getSERVER_ID() + ";" + Config.INSTANCE.getSERVER_KEY() + ";" + i);
                                         break;
 
                                     case 'K': //Ok
                                         ExchangeClient.logger.info("The login server has accepted the connection.");
-                                        Main.INSTANCE.getExchangeClient().send("SH" + Main.INSTANCE.getIp() + ";" + Main.INSTANCE.getGamePort());
+                                        Main.INSTANCE.getExchangeClient().send("SH" + Config.INSTANCE.getIp() + ";" + Config.INSTANCE.getGamePort());
                                         break;
 
                                     case 'R': //Refused

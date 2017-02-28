@@ -55,29 +55,29 @@ public class IA70 extends AbstractNeedSpell {
                 action = true;
             }
 
-            Fighter ennemy = Function.INSTANCE.getgetNearestEnnemy(this.fight, this.fighter);
-            Fighter nearestEnnemy = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 3);//2 = po min 1 + 1;
+            Fighter ennemy = Function.getInstance().getNearestEnnemy(this.fight, this.fighter);
+            Fighter nearestEnnemy = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 3);//2 = po min 1 + 1;
 
             if(nearestEnnemy != null) if(nearestEnnemy.isHide()) nearestEnnemy = null;
             if(ennemy != null) if(ennemy.isHide()) ennemy = null;
 
             if(this.fighter.getCurPm(this.fight) > 0 && nearestEnnemy != null && !action) {
-                Function.INSTANCE.getmoveNearIfPossible(this.fight, this.fighter, nearestEnnemy);
+                Function.getInstance().moveNearIfPossible(this.fight, this.fighter, nearestEnnemy);
                 time = 1000;
             } else if(this.fighter.getCurPm(this.fight) > 0 && nearestEnnemy == null && !action) {
-                Function.INSTANCE.getmoveNearIfPossible(this.fight, this.fighter, ennemy);
+                Function.getInstance().moveNearIfPossible(this.fight, this.fighter, ennemy);
                 time = 1000;
             }
 
             if(this.fighter.getCurPa(this.fight) > 0 && nearestEnnemy != null && !action) {
-                int value = Function.INSTANCE.getattackIfPossible(this.fight, this.fighter, this.cacs);
+                int value = Function.getInstance().attackIfPossible(this.fight, this.fighter, this.cacs);
                 if(value != 0) {
                     time = value;
                     action = true;
                 }
             }
             if(this.fighter.getCurPa(this.fight) > 0 && ennemy != null && !action) {
-                int value = Function.INSTANCE.getattackIfPossible(this.fight, this.fighter, this.cacs);
+                int value = Function.getInstance().attackIfPossible(this.fight, this.fighter, this.cacs);
                 if(value != 0) {
                     time = value;
                     action = true;
@@ -85,8 +85,8 @@ public class IA70 extends AbstractNeedSpell {
             }
 
             if(this.fighter.getCurPm(this.fight) > 0 && !action) {
-                nearestEnnemy = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 20);//2 = po min 1 + 1;
-                Function.INSTANCE.getmoveNearIfPossible(this.fight, this.fighter, nearestEnnemy);
+                nearestEnnemy = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 20);//2 = po min 1 + 1;
+                Function.getInstance().moveNearIfPossible(this.fight, this.fighter, nearestEnnemy);
                 time = 1000;
             }
 

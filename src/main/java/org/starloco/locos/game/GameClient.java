@@ -115,14 +115,14 @@ public class GameClient {
         }
         if(Logging.USE_LOG) {
             if (this.player != null) {
-                Logging.INSTANCE.getwrite("RecvPacket", this.player.getName() + " : " + this.player.getAccount().getCurrentIp() + " : " + packet);
+                Logging.getInstance().write("RecvPacket", this.player.getName() + " : " + this.player.getAccount().getCurrentIp() + " : " + packet);
             } else {
                 String IP = ((InetSocketAddress) (this.getSession().getRemoteAddress())).getAddress().getHostAddress();
-                Logging.INSTANCE.getwrite("RecvPacket", IP + " : " + packet);
+                Logging.getInstance().write("RecvPacket", IP + " : " + packet);
             }
         }
 
-        if(Config.INSTANCE.getAUTO_EVENT) {
+        if(Config.INSTANCE.getAUTO_EVENT()) {
             EventManager manager = EventManager.getInstance();
             if(manager.getState() == EventManager.State.STARTED) {
                 Event event = manager.getCurrentEvent();
@@ -502,7 +502,7 @@ public class GameClient {
         if (this.account.getPlayers().get(id) != null) {
             this.player = this.account.getPlayers().get(id);
             if (this.player != null) {
-                if(this.player.isDead() == 1 && Config.INSTANCE.getHEROIC)
+                if(this.player.isDead() == 1 && Config.INSTANCE.getHEROIC())
                     this.getSession().write("BN");
                 else
                     this.player.OnJoinGame();
@@ -524,26 +524,7 @@ public class GameClient {
                 Main.INSTANCE.getGameServer().deleteWaitingAccount(this.account);
 
                 String ip = this.session.getRemoteAddress().toString().substring(1).split(":")[0];
-
-                if (!ip.equals("127.0.0.1") && Config.INSTANCE.getONLY_LOCAL) {
-                    this.kick();
-                    return;
-                }
-
-                if(Main.INSTANCE.getServerId() == 37 && !this.account.isSubscribeWithoutCondition()) {
-                    byte i = 0;
-                    for(GameClient client : Main.INSTANCE.getGameServer().getClients()) {
-                        if(client.getAccount() != null && client.getAccount().getCurrentIp() != null)
-                        if (client.getAccount().getCurrentIp().equals(ip)) {
-                            i++;
-                            if( i == 2) {
-                                this.kick();
-                                return;
-                            }
-                        }
-                    }
-                }
-
+                
                 if(this.account.getGameClient() != null)
                     this.account.getGameClient().kick();
 
@@ -551,9 +532,9 @@ public class GameClient {
                 this.account.setCurrentIp(ip);
                 Database.getStatics().getAccountData().setLogged(this.account.getId(), 1);
 
-                if (Logging.USE_LOG) Logging.INSTANCE.getwrite("AccountIpConnect", this.account.getName() + " > " + ip);
+                if (Logging.USE_LOG) Logging.getInstance().write("AccountIpConnect", this.account.getName() + " > " + ip);
 
-                if(Config.INSTANCE.getENCRYPT_PACKET){
+                if(Config.INSTANCE.getENCRYPT_PACKET()){
                     //String key = generateKey();
                     this.getSession().write("ATK18fd8ad4a38cdd0432248a76f8f148ceb");
                     this.preparedKeys = World.world.getCryptManager().prepareKey("8fd8ad4a38cdd0432248a76f8f148ceb");
@@ -611,7 +592,7 @@ public class GameClient {
         }
 
         if (Logging.USE_LOG)
-            Logging.INSTANCE.getwrite("CommandAdmin", this.getAccount().getCurrentIp() + " : " + this.getAccount().getName() + " > " + this.getPlayer().getName() + " > " + packet.substring(2));
+            Logging.getInstance().write("CommandAdmin", this.getAccount().getCurrentIp() + " : " + this.getAccount().getName() + " > " + this.getPlayer().getName() + " > " + packet.substring(2));
 
         this.adminUser.apply(packet);
     }
@@ -676,7 +657,7 @@ public class GameClient {
                     return;
                 }
                 if (Logging.USE_LOG)
-                    Logging.INSTANCE.getwrite("DefaultMessage", this.player.getName() + " > Map " + this.player.getCurMap().getId() + " > " + msg);
+                    Logging.getInstance().write("DefaultMessage", this.player.getName() + " > Map " + this.player.getCurMap().getId() + " > " + msg);
                 if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF) != null)
                     if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF).getTemplate().getId() == 10844)
                         msg = Formulas.translateMsg(msg);
@@ -717,7 +698,7 @@ public class GameClient {
                     if (team == -1)
                         return;
                     if (Logging.USE_LOG)
-                        Logging.INSTANCE.getwrite("TeamMessage", this.player.getName()
+                        Logging.getInstance().write("TeamMessage", this.player.getName()
                                 + " > " + this.player.getFight() + " > " + msg);
                     if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF) != null)
                         if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF).getTemplate().getId() == 10844)
@@ -733,7 +714,7 @@ public class GameClient {
                     break;
                 msg = packet.split("\\|", 2)[1];
                 if (Logging.USE_LOG)
-                    Logging.INSTANCE.getwrite("PartyMessage", this.player.getName()
+                    Logging.getInstance().write("PartyMessage", this.player.getName()
                             + " > " + this.player.getParty() + " > " + msg);
                 if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF) != null)
                     if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF).getTemplate().getId() == 10844)
@@ -765,7 +746,7 @@ public class GameClient {
                     timeLastTradeMsg = System.currentTimeMillis();
                     msg = packet.split("\\|", 2)[1];
                     if (Logging.USE_LOG)
-                        Logging.INSTANCE.getwrite("TradeMessage", this.player.getName()
+                        Logging.getInstance().write("TradeMessage", this.player.getName()
                                 + " > " + msg);
                     if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF) != null)
                         if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF).getTemplate().getId() == 10844)
@@ -778,7 +759,7 @@ public class GameClient {
                     return;
                 msg = packet.split("\\|", 2)[1];
                 if (Logging.USE_LOG)
-                    Logging.INSTANCE.getwrite("AdminMessage", this.player.getName()
+                    Logging.getInstance().write("AdminMessage", this.player.getName()
                             + " > " + msg);
                 SocketManager.GAME_SEND_cMK_PACKET_TO_ADMIN("@", this.player.getId(), this.player.getName(), msg);
                 break;
@@ -807,7 +788,7 @@ public class GameClient {
                     timeLastRecrutmentMsg = System.currentTimeMillis();
                     msg = packet.split("\\|", 2)[1];
                     if (Logging.USE_LOG)
-                        Logging.INSTANCE.getwrite("RecruitmentMessage", this.player.getName()
+                        Logging.getInstance().write("RecruitmentMessage", this.player.getName()
                                 + " > " + msg);
                     if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF) != null)
                         if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF).getTemplate().getId() == 10844)
@@ -822,7 +803,7 @@ public class GameClient {
                     return;
                 msg = packet.split("\\|", 2)[1];
                 if (Logging.USE_LOG)
-                    Logging.INSTANCE.getwrite("GuildMessage", this.player.getName()
+                    Logging.getInstance().write("GuildMessage", this.player.getName()
                             + " > " + this.player.getGuild().getName() + " > " + msg);
                 if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF) != null)
                     if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF).getTemplate().getId() == 10844)
@@ -851,7 +832,7 @@ public class GameClient {
                 timeLastAlignMsg = System.currentTimeMillis();
                 msg = packet.split("\\|", 2)[1];
                 if (Logging.USE_LOG)
-                    Logging.INSTANCE.getwrite("AlignMessage", this.player.getName()
+                    Logging.getInstance().write("AlignMessage", this.player.getName()
                             + " > " + msg);
                 if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF) != null)
                     if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF).getTemplate().getId() == 10844)
@@ -889,7 +870,7 @@ public class GameClient {
                     }
 
                     if (Logging.USE_LOG)
-                        Logging.INSTANCE.getwrite("PrivateMessage", this.player.getName() + " à " + target.getName() + " > " + msg);
+                        Logging.getInstance().write("PrivateMessage", this.player.getName() + " à " + target.getName() + " > " + msg);
                     if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF) != null)
                         if (this.player.getObjetByPos(Constant.ITEM_POS_ROLEPLAY_BUFF).getTemplate().getId() == 10844)
                             msg = Formulas.translateMsg(msg);
@@ -3941,7 +3922,7 @@ public class GameClient {
             case 909://Collector
                 if (Main.INSTANCE.getFightAsBlocked())
                     return;
-                long calcul = System.currentTimeMillis() - Config.INSTANCE.getstartTime;
+                long calcul = System.currentTimeMillis() - Config.INSTANCE.getStartTime();
                 if(calcul < 600000) {
                     this.player.sendMessage("Vous devez attendre encore " + ((600000 - calcul) / 60000) + " minute(s).");
                     return;
@@ -3952,7 +3933,7 @@ public class GameClient {
             case 912:// ataque Prisme
                 if (Main.INSTANCE.getFightAsBlocked())
                     return;
-                calcul = System.currentTimeMillis() - Config.INSTANCE.getstartTime;
+                calcul = System.currentTimeMillis() - Config.INSTANCE.getStartTime();
                 if(calcul < 600000) {
                     this.player.sendMessage("Vous devez attendre encore " + ((600000 - calcul) / 60000) + " minute(s).");
                     return;
@@ -4020,7 +4001,7 @@ public class GameClient {
             }
             if (result == 0) {
                 if (targetCell.getObject() != null) {
-                    if (Main.INSTANCE.getModDebug()) {
+                    if (Config.INSTANCE.getDEBUG()) {
                         World.world.logger.error("#1# Object Interactif : " + targetCell.getObject().getId());
                         World.world.logger.error("#1# On cellule : " + targetCell.getId());
                     }
@@ -4060,7 +4041,7 @@ public class GameClient {
                     this.player.setAway(false);
                 this.player.getCurMap().onPlayerArriveOnCell(this.player, this.player.getCurCell().getId());
                 if (targetCell.getObject() != null) {
-                    if (Main.INSTANCE.getModDebug()) {
+                    if (Config.INSTANCE.getDEBUG()) {
                         World.world.logger.error("#3# Object Interactif : " + targetCell.getObject().getId());
                         World.world.logger.error("#3# On cellule : " + targetCell.getId());
                     }
@@ -4538,7 +4519,7 @@ public class GameClient {
                             this.player.setAway(false);
                         this.player.getCurMap().onPlayerArriveOnCell(this.player, this.player.getCurCell().getId());
                         if (targetCell.getObject() != null) {
-                            if (Main.INSTANCE.getModDebug()) {
+                            if (Config.INSTANCE.getDEBUG()) {
                                 World.world.logger.error("#2# Object Interactif : " + targetCell.getObject().getId());
                                 World.world.logger.error("#2# On cellule : " + targetCell.getId());
                             }
@@ -5647,7 +5628,7 @@ public class GameClient {
             SocketManager.GAME_SEND_OBJECT_QUANTITY_PACKET(this.player, obj);
         }
         if (Logging.USE_LOG)
-            Logging.INSTANCE.getwrite("Object", "Dropping : " + this.player.getName() + " a jeté [" + obj.getTemplate().getId() + "@" + obj.getGuid() + ";" + qua + "]");
+            Logging.getInstance().write("Object", "Dropping : " + this.player.getName() + " a jeté [" + obj.getTemplate().getId() + "@" + obj.getGuid() + ";" + qua + "]");
         SocketManager.GAME_SEND_Ow_PACKET(this.player);
         SocketManager.GAME_SEND_GDO_PACKET_TO_MAP(this.player.getCurMap(), '+', this.player.getCurMap().getCase(cellPosition).getId(), obj.getTemplate().getId(), 0);
         SocketManager.GAME_SEND_STATS_PACKET(this.player);
@@ -6914,16 +6895,16 @@ public class GameClient {
         if (GA.actionId == 1)
             walk = true;
 
-        if (Main.INSTANCE.getModDebug())
+        if (Config.INSTANCE.getDEBUG())
             World.world.logger.error("Game > Create action id : " + GA.id);
-        if (Main.INSTANCE.getModDebug())
+        if (Config.INSTANCE.getDEBUG())
             World.world.logger.error("Game > Packet : " + GA.packet);
     }
 
     public synchronized void removeAction(GameAction GA) {
         if (GA.actionId == 1)
             walk = false;
-        if (Main.INSTANCE.getModDebug())
+        if (Config.INSTANCE.getDEBUG())
             World.world.logger.error("Game >  Delete action id : " + GA.id);
         actions.remove(GA.id);
 
@@ -7023,11 +7004,11 @@ public class GameClient {
 
     public void send(String packet) {
         try {
-            if (Config.INSTANCE.getENCRYPT_PACKET && this.preparedKeys != null)
+            if (Config.INSTANCE.getENCRYPT_PACKET() && this.preparedKeys != null)
                 packet = World.world.getCryptManager().cryptMessage(packet, this.preparedKeys);
             this.getSession().write(packet);
         } catch(Exception e) {
-            Logging.INSTANCE.getwrite("Error", "Send fail : " + packet);
+            Logging.getInstance().write("Error", "Send fail : " + packet);
             e.printStackTrace();
         }
     }

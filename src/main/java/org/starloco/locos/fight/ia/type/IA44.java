@@ -19,46 +19,46 @@ public class IA44 extends AbstractNeedSpell  {
         if (!this.stop && this.fighter.canPlay() && this.count > 0) {
             int time = 100;
             boolean action = false;
-            Fighter E = Function.INSTANCE.getgetNearestEnnemy(this.fight, this.fighter);
-            Fighter C = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
-            Fighter A = Function.INSTANCE.getgetNearestAminoinvocnbrcasemax(this.fight, this.fighter, 0, 5);//2 = po min 1 + 1;
-            Fighter A1 = Function.INSTANCE.getgetNearestAminoinvocnbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+            Fighter E = Function.getInstance().getNearestEnnemy(this.fight, this.fighter);
+            Fighter C = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+            Fighter A = Function.getInstance().getNearestAminoinvocnbrcasemax(this.fight, this.fighter, 0, 5);//2 = po min 1 + 1;
+            Fighter A1 = Function.getInstance().getNearestAminoinvocnbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
 
             if(A != null && (A.getPdv() * 100) / A.getPdvMax() > 90) A = null;
             if(A1 != null && (A1.getPdv() * 100) / A1.getPdvMax() > 90) A1 = null;
             if(C != null && C.isHide()) C = null;
 
             if(this.fighter.getCurPm(this.fight) > 0 && A != null && A1 == null) {
-                int value = Function.INSTANCE.getmoveautourIfPossible(this.fight, this.fighter, A);
+                int value = Function.getInstance().moveautourIfPossible(this.fight, this.fighter, A);
                 if(value != 0) {
                     time = value;
                     action = true;
-                    C = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
-                    A1 = Function.INSTANCE.getgetNearestAminoinvocnbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+                    C = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+                    A1 = Function.getInstance().getNearestAminoinvocnbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
                 }
             } else if(this.fighter.getCurPm(this.fight) > 0 && C == null) {
-                int value = Function.INSTANCE.getmoveautourIfPossible(this.fight, this.fighter, E);
+                int value = Function.getInstance().moveautourIfPossible(this.fight, this.fighter, E);
                 if(value != 0) {
                     time = value;
                     action = true;
-                    C = Function.INSTANCE.getgetNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+                    C = Function.getInstance().getNearestEnnemynbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
                 }
             }
             if(this.fighter.getCurPa(this.fight) > 0 && C != null && !action) {
-                int value = Function.INSTANCE.getattackIfPossible(this.fight, this.fighter, this.cacs);
+                int value = Function.getInstance().attackIfPossible(this.fight, this.fighter, this.cacs);
                 if(value != 0) {
                     time = value;
                     action = true;
                 }
             } else if(this.fighter.getCurPa(this.fight) > 0 && A1 != null && !action) {
-                int value = Function.INSTANCE.getattackIfPossiblevisee(this.fight, this.fighter, A1, this.cacs);
+                int value = Function.getInstance().attackIfPossiblevisee(this.fight, this.fighter, A1, this.cacs);
                 if(value != 0) {
                     time = value;
                     action = true;
                 }
             }
             if(this.fighter.getCurPm(this.fight) > 0 && !action) {
-                int value = Function.INSTANCE.getmoveautourIfPossible(this.fight, this.fighter, E);
+                int value = Function.getInstance().moveautourIfPossible(this.fight, this.fighter, E);
                 if(value != 0) time = value;
             }
       

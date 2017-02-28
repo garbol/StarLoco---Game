@@ -2,6 +2,7 @@ package org.starloco.locos.database.statics.data;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.starloco.locos.database.statics.AbstractDAO;
+import org.starloco.locos.kernel.Config;
 import org.starloco.locos.kernel.Main;
 
 import java.sql.PreparedStatement;
@@ -26,7 +27,7 @@ public class ServerData extends AbstractDAO<Object> {
         try {
             p = getPreparedStatement("UPDATE servers SET `uptime` = ? WHERE `id` = ?");
             p.setLong(1, time);
-            p.setInt(2, Main.INSTANCE.getServerId());
+            p.setInt(2, Config.INSTANCE.getSERVER_ID());
             execute(p);
         } catch (SQLException e) {
             super.sendError("ServerData updateTime", e);
@@ -38,7 +39,7 @@ public class ServerData extends AbstractDAO<Object> {
     public void loggedZero() {
         PreparedStatement p = null;
         try {
-            p = getPreparedStatement("UPDATE players SET `logged` = 0 WHERE `server` = '" + Main.INSTANCE.getServerId() + "'");
+            p = getPreparedStatement("UPDATE players SET `logged` = 0 WHERE `server` = '" + Config.INSTANCE.getSERVER_ID() + "'");
             execute(p);
         } catch (SQLException e) {
             super.sendError("ServerData loggedZero", e);

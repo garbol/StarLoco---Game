@@ -19,7 +19,7 @@ public class FightManager {
     private static List<TeamMatch> kolizeums = Collections.synchronizedList(new ArrayList<>());
 
     static {
-        if(Config.INSTANCE.getTEAM_MATCH || Config.INSTANCE.getDEATH_MATCH) {
+        if(Config.INSTANCE.getTEAM_MATCH() || Config.INSTANCE.getDEATH_MATCH()) {
             scheduler = Executors.newSingleThreadScheduledExecutor();
         } else {
             scheduler = null;

@@ -17,14 +17,14 @@ public class IA26 extends AbstractIA  {
     @Override
     public void apply() {
         if (!this.stop && this.fighter.canPlay() && this.count > 0) {
-            Fighter ennemy = Function.INSTANCE.getgetNearestEnnemy(this.fight, this.fighter);
-            Function.INSTANCE.getattackIfPossibleAll(this.fight, this.fighter, ennemy);
+            Fighter ennemy = Function.getInstance().getNearestEnnemy(this.fight, this.fighter);
+            Function.getInstance().attackIfPossibleAll(this.fight, this.fighter, ennemy);
 
-            if (!Function.INSTANCE.getinvocIfPossible(this.fight, this.fighter))
-                if (!Function.INSTANCE.getmoveNearIfPossible(this.fight, this.fighter, ennemy))
-                    if (!Function.INSTANCE.getbuffIfPossibleKitsou(this.fight, this.fighter, this.fighter))
-                        if(Function.INSTANCE.getattackIfPossibleAll(this.fight, this.fighter, ennemy) == 0)
-                            Function.INSTANCE.getmoveFarIfPossible(this.fight, this.fighter);
+            if (!Function.getInstance().invocIfPossible(this.fight, this.fighter))
+                if (!Function.getInstance().moveNearIfPossible(this.fight, this.fighter, ennemy))
+                    if (!Function.getInstance().buffIfPossibleKitsou(this.fight, this.fighter, this.fighter))
+                        if(Function.getInstance().attackIfPossibleAll(this.fight, this.fighter, ennemy) == 0)
+                            Function.getInstance().moveFarIfPossible(this.fight, this.fighter);
 
             addNext(this::decrementCount, 2000);
         } else {

@@ -19,34 +19,34 @@ public class IA48 extends AbstractNeedSpell  {
         if (!this.stop && this.fighter.canPlay() && this.count > 0) {
             int time = 100;
             boolean action = false;
-            Fighter E = Function.INSTANCE.getgetNearestEnnemy(this.fight, this.fighter);
-            Fighter C = Function.INSTANCE.getgetNearestEnnemymurnbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+            Fighter E = Function.getInstance().getNearestEnnemy(this.fight, this.fighter);
+            Fighter C = Function.getInstance().getNearestEnnemymurnbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
 
             if(C != null && C.isHide()) C = null;
 
             if(this.fighter.getCurPm(this.fight) > 0 && C == null) {
-                int value = Function.INSTANCE.getmoveIfPossiblecontremur(this.fight, this.fighter, E);
+                int value = Function.getInstance().moveIfPossiblecontremur(this.fight, this.fighter, E);
                 if(value != 0) {
                     time = value;
                     action = true;
-                    C = Function.INSTANCE.getgetNearestEnnemymurnbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
+                    C = Function.getInstance().getNearestEnnemymurnbrcasemax(this.fight, this.fighter, 0, 2);//2 = po min 1 + 1;
                 }
             }
             if(this.fighter.getCurPa(this.fight) > 0 && !action) {
-                if (Function.INSTANCE.getinvocIfPossible(this.fight, this.fighter, this.invocations)) {
+                if (Function.getInstance().invocIfPossible(this.fight, this.fighter, this.invocations)) {
                     time = 2000;
                     action = true;
                 }
             }
             if(this.fighter.getCurPa(this.fight) > 0 && C != null && !action) {
-                int value = Function.INSTANCE.getattackIfPossible(this.fight, this.fighter, this.cacs);
+                int value = Function.getInstance().attackIfPossible(this.fight, this.fighter, this.cacs);
                 if(value != 0) {
                     time = value;
                     action = true;
                 }
             }
             if(this.fighter.getCurPm(this.fight) > 0 && !action) {
-                int value = Function.INSTANCE.getmoveIfPossiblecontremur(this.fight, this.fighter, E);
+                int value = Function.getInstance().moveIfPossiblecontremur(this.fight, this.fighter, E);
                 if(value != 0) time = value;
             }
 
