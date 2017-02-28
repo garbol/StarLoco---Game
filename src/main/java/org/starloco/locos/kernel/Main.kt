@@ -84,7 +84,8 @@ object Main {
             Config.isRunning = true
             World.world.createWorld()
 
-            GameServer().initialize()
+            this.gameServer = GameServer();
+            gameServer.initialize()
             ExchangeClient().initialize()
 
             Main.refreshTitle()

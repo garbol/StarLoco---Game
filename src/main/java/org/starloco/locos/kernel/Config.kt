@@ -1,10 +1,5 @@
 package org.starloco.locos.kernel
 
-import org.starloco.locos.database.Database
-import org.starloco.locos.util.Points
-
-import java.io.*
-
 object Config {
 
     val startTime = System.currentTimeMillis()
@@ -48,7 +43,7 @@ object Config {
     var loginUserDB: String = ConfigReader.data[ConfigReader.database.login.user]
     var loginPassDB: String = ConfigReader.data[ConfigReader.database.login.pass]
     var hostDB: String? = ConfigReader.data[ConfigReader.database.game.host]
-    var portDB: Int = ConfigReader.data[ConfigReader.database.login.port]
+    var portDB: Int = ConfigReader.data[ConfigReader.database.game.port]
     var nameDB: String? = ConfigReader.data[ConfigReader.database.game.name]
     var userDB: String? = ConfigReader.data[ConfigReader.database.game.user]
     var passDB: String? = ConfigReader.data[ConfigReader.database.game.pass]

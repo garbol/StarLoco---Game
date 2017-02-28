@@ -1,11 +1,12 @@
 package org.starloco.locos.kernel
 
 import com.natpryce.konfig.*
+import java.io.File
 
 /**
  * Created by flore on 26/02/2017.
  */
-object ConfigReader {///https://kotlinlang.org/docs/reference/object-declarations.htm
+object ConfigReader {
     lateinit var data: Configuration
 
     init {
@@ -13,7 +14,7 @@ object ConfigReader {///https://kotlinlang.org/docs/reference/object-declaration
     }
 
     fun reload() {
-        this.data = EnvironmentVariables() overriding ConfigurationProperties.fromResource("config.properties")
+        this.data = EnvironmentVariables() overriding ConfigurationProperties.fromFile(File("config.properties"))
     }
 
     object console : PropertyGroup() {

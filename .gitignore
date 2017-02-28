@@ -1,6 +1,7 @@
 #Custom paths
 Logs/
 data.txt
+config.properties
 
 
 # Created by https://www.gitignore.io/api/java,intellij,intellij+iml
