@@ -3,6 +3,7 @@ package org.starloco.locos.database.statics.data;
 import com.zaxxer.hikari.HikariDataSource;
 import org.starloco.locos.database.statics.AbstractDAO;
 import org.starloco.locos.game.scheduler.entity.WorldPub;
+import org.starloco.locos.kernel.Config;
 import org.starloco.locos.kernel.Main;
 
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ public class PubData extends AbstractDAO<Object> {
 	public void load(Object obj) {
         Result result = null;
         try {
-            result = getData("SELECT * FROM `pubs` WHERE `server` LIKE '" + Main.serverId + "|';");
+            result = getData("SELECT * FROM `pubs` WHERE `server` LIKE '" + Config.INSTANCE.getSERVER_ID() + "|';");
             ResultSet RS = result.resultSet;
             while (RS.next())
                 WorldPub.pubs.add(RS.getString("data"));

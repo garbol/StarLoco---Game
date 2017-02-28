@@ -6,6 +6,7 @@ import org.starloco.locos.database.Database;
 import org.starloco.locos.exchange.transfer.DataType;
 import org.starloco.locos.game.GameServer;
 import org.starloco.locos.game.world.World;
+import org.starloco.locos.kernel.Config;
 import org.starloco.locos.kernel.Main;
 
 import java.text.SimpleDateFormat;
@@ -22,7 +23,7 @@ public class ExchangePacketHandler {
                         switch (packet.charAt(1)) {
                             case '?': //Required
                                 int i = GameServer.MAX_PLAYERS - World.world.getOnlinePlayers().size();
-                                Main.exchangeClient.send("F" + i);
+                                Main.INSTANCE.getExchangeClient().send("F" + i);
                                 break;
                         }
                         break;
@@ -41,18 +42,18 @@ public class ExchangePacketHandler {
                             case 'K': //Key
                                 switch (packet.charAt(2)) {
                                     case '?': //Required
-                                        int i = 50000 - Main.gameServer.getClients().size();
-                                        Main.exchangeClient.send("SK" + Main.serverId + ";" + Main.key + ";" + i);
+                                        int i = 50000 - Main.INSTANCE.getGameServer().getClients().size();
+                                        Main.INSTANCE.getExchangeClient().send("SK" + Config.INSTANCE.getSERVER_ID() + ";" + Config.INSTANCE.getSERVER_KEY() + ";" + i);
                                         break;
 
                                     case 'K': //Ok
                                         ExchangeClient.logger.info("The login server has accepted the connection.");
-                                        Main.exchangeClient.send("SH" + Main.Ip + ";" + Main.gamePort);
+                                        Main.INSTANCE.getExchangeClient().send("SH" + Config.INSTANCE.getIp() + ";" + Config.INSTANCE.getGamePort());
                                         break;
 
                                     case 'R': //Refused
                                         ExchangeClient.logger.info("The login server has refused the connection.");
-                                        Main.stop("Connection refused by the login");
+                                        Main.INSTANCE.stop("Connection refused by the login");
                                         break;
                                 }
                                 break;
@@ -74,7 +75,7 @@ public class ExchangePacketHandler {
                                     if (account.getCurrentPlayer() != null)
                                         account.getGameClient().kick();
                                     account.setSubscribe();
-                                    Main.gameServer.addWaitingAccount(account);
+                                    Main.INSTANCE.getGameServer().addWaitingAccount(account);
                                 }
                                 break;
                             case 'K': //Kick

@@ -334,8 +334,8 @@ public class Quest {
         long xp; int kamas;
 
         if ((xp = questObjectif.getXp()) > 0) { //Xp a donner
-            player.addXp(xp * ((int) Config.getInstance().RATE_XP));
-            SocketManager.GAME_SEND_Im_PACKET(player, "08;" + (xp * ((int) Config.getInstance().RATE_XP)));
+            player.addXp(xp * ((int) Config.INSTANCE.getRATE_XP()));
+            SocketManager.GAME_SEND_Im_PACKET(player, "08;" + (xp * ((int) Config.INSTANCE.getRATE_XP())));
             SocketManager.GAME_SEND_STATS_PACKET(player);
         }
 

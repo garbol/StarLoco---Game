@@ -59,12 +59,12 @@ public class GameMap {
             }
 
             if(this.verify()) {
-                if(Config.getInstance().AUTO_REBOOT) {
+                if(Config.INSTANCE.getAUTO_REBOOT()) {
                     if (Reboot.check()) {
-                        if ((System.currentTimeMillis() - Config.getInstance().startTime) > 60000) {
+                        if ((System.currentTimeMillis() - Config.INSTANCE.getStartTime()) > 60000) {
                             for (Player player : World.world.getOnlinePlayers()) player.send(this.toString());
                             try { Thread.sleep(5000); } catch (Exception ignored) {}
-                            Main.stop("Automatic restart");
+                            Main.INSTANCE.stop("Automatic restart");
                         }
                     }
                 }
@@ -139,7 +139,7 @@ public class GameMap {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Main.stop("GameMap1");
+            Main.INSTANCE.stop("GameMap1");
         }
 
         try {
@@ -176,7 +176,7 @@ public class GameMap {
                 continue;
             if (World.world.getMonstre(id1).getGradeByLevel(lvl) == null)
                 continue;
-            if (Config.getInstance().HALLOWEEN) {
+            if (Config.INSTANCE.getHALLOWEEN()) {
                 switch (id1) {
                     case 98://Tofu
                         if (World.world.getMonstre(794) != null)
@@ -424,7 +424,7 @@ public class GameMap {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Main.stop("GameMap2");
+            Main.INSTANCE.stop("GameMap2");
         }
         this.maxGroup = maxGroup;
         this.maxSize = maxSize;
@@ -470,7 +470,7 @@ public class GameMap {
                 continue;
             if (World.world.getMonstre(id1).getGradeByLevel(lvl) == null)
                 continue;
-            if (Config.getInstance().HALLOWEEN) {
+            if (Config.INSTANCE.getHALLOWEEN()) {
                 switch (id1) {
                     case 98://Tofu
                         if (World.world.getMonstre(794) != null)
@@ -891,7 +891,7 @@ public class GameMap {
             if (!this.mobExtras.isEmpty()) {
                 for (Entry<Integer, Integer> entry : this.mobExtras.entrySet()) {
                     if (entry.getKey() == 499) // Si c'est un minotoboule de nowel
-                        if (!Config.getInstance().NOEL) // Si ce n'est pas nowel
+                        if (!Config.INSTANCE.getNOEL()) // Si ce n'est pas nowel
                             continue;
                     int random = Formulas.getRandomValue(0, 99);
                     while (entry.getValue() > random) {
@@ -1128,7 +1128,7 @@ public class GameMap {
             player.sendMessage("Poste sur le forum dans la catégorie adéquat avec l'id de la map (/mapid dans le tchat) afin de pouvoir y mettre les cellules de combat. Merci.");
             return;
         }
-        if (Main.fightAsBlocked)
+        if (Main.INSTANCE.getFightAsBlocked())
             return;
         if (player.isDead() == 1)
             return;
@@ -1174,7 +1174,7 @@ public class GameMap {
     }
 
     public void startFightVersusProtectors(Player player, Monster.MobGroup group) {
-        if (Main.fightAsBlocked || player == null || player.getFight() != null || player.isDead() == 1 || !player.canAggro())
+        if (Main.INSTANCE.getFightAsBlocked() || player == null || player.getFight() != null || player.isDead() == 1 || !player.canAggro())
             return;
         if (player.isInAreaNotSubscribe()) {
             SocketManager.GAME_SEND_EXCHANGE_REQUEST_ERROR(player.getGameClient(), 'S');
@@ -1223,7 +1223,7 @@ public class GameMap {
             SocketManager.GAME_SEND_EXCHANGE_REQUEST_ERROR(perso.getGameClient(), 'S');
             return;
         }
-        if (Main.fightAsBlocked)
+        if (Main.INSTANCE.getFightAsBlocked())
             return;
         if (perso.isDead() == 1)
             return;
@@ -1246,7 +1246,7 @@ public class GameMap {
             SocketManager.GAME_SEND_EXCHANGE_REQUEST_ERROR(perso.getGameClient(), 'S');
             return;
         }
-        if (Main.fightAsBlocked)
+        if (Main.INSTANCE.getFightAsBlocked())
             return;
         if (perso.isDead() == 1)
             return;
@@ -1636,7 +1636,7 @@ public class GameMap {
             return;
         synchronized (cell) {
             GameObject obj = cell.getDroppedItem(true);
-            if (obj != null && !Main.mapAsBlocked) {
+            if (obj != null && !Main.INSTANCE.getMapAsBlocked()) {
                 if (Logging.USE_LOG)
                     Logging.getInstance().write("Object", "GetInOnTheFloor : " + player.getName() + " a ramassé [" + obj.getTemplate().getId() + "@" + obj.getGuid() + ";" + obj.getQuantity() + "]");
                 if (player.addObjet(obj, true))
@@ -1644,7 +1644,7 @@ public class GameMap {
                 SocketManager.GAME_SEND_GDO_PACKET_TO_MAP(this, '-', id, 0, 0);
                 SocketManager.GAME_SEND_Ow_PACKET(player);
             }
-            if (obj != null && Main.mapAsBlocked)
+            if (obj != null && Main.INSTANCE.getMapAsBlocked())
                 SocketManager.GAME_SEND_MESSAGE(player, "L'Administrateur à bloqué temporairement l'accès de récolte des objets aux sols.");
         }
 

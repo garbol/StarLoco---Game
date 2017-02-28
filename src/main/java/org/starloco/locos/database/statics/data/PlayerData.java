@@ -7,6 +7,7 @@ import org.starloco.locos.command.administration.Group;
 import org.starloco.locos.database.Database;
 import org.starloco.locos.database.statics.AbstractDAO;
 import org.starloco.locos.game.world.World;
+import org.starloco.locos.kernel.Config;
 import org.starloco.locos.kernel.Constant;
 import org.starloco.locos.kernel.Main;
 
@@ -46,7 +47,7 @@ public class PlayerData extends AbstractDAO<Player> {
             result = getData("SELECT * FROM players");
             ResultSet RS = result.resultSet;
             while (RS.next()) {
-                if (RS.getInt("server") != Main.serverId)
+                if (RS.getInt("server") != Config.INSTANCE.getSERVER_ID())
                     continue;
 
                 HashMap<Integer, Integer> stats = new HashMap<Integer, Integer>();
@@ -65,7 +66,7 @@ public class PlayerData extends AbstractDAO<Player> {
             }
         } catch (SQLException e) {
             super.sendError("PlayerData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }
@@ -78,7 +79,7 @@ public class PlayerData extends AbstractDAO<Player> {
             result = getData("SELECT * FROM players WHERE id = '" + obj + "'");
             ResultSet RS = result.resultSet;
             while (RS.next()) {
-                if (RS.getInt("server") != Main.serverId)
+                if (RS.getInt("server") != Config.INSTANCE.getSERVER_ID())
                     continue;
 
                 HashMap<Integer, Integer> stats = new HashMap<Integer, Integer>();
@@ -105,7 +106,7 @@ public class PlayerData extends AbstractDAO<Player> {
             }
         } catch (SQLException e) {
             super.sendError("PlayerData load id", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }
@@ -127,7 +128,7 @@ public class PlayerData extends AbstractDAO<Player> {
             result = getData("SELECT * FROM players WHERE account = '" + id + "'");
             ResultSet RS = result.resultSet;
             while (RS.next()) {
-                if (RS.getInt("server") != Main.serverId)
+                if (RS.getInt("server") != Config.INSTANCE.getSERVER_ID())
                     continue;
 
                 Player p = World.world.getPlayer(RS.getInt("id"));
@@ -157,7 +158,7 @@ public class PlayerData extends AbstractDAO<Player> {
             }
         } catch (SQLException e) {
             super.sendError("PlayerData loadByAccountId", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }
@@ -203,7 +204,7 @@ public class PlayerData extends AbstractDAO<Player> {
             p.setInt(17, perso.getCurCell().getId());
             p.setInt(18, perso.getCurMap().getId());
             p.setString(19, perso.parseSpellToDB());
-            p.setInt(20, Main.serverId);
+            p.setInt(20, Config.INSTANCE.getSERVER_ID());
             execute(p);
             return true;
         } catch (SQLException e) {
@@ -448,7 +449,7 @@ public class PlayerData extends AbstractDAO<Player> {
         String servers = "";
         try {
             result = getData("SELECT server FROM players WHERE account = '"
-                    + account + "' AND NOT server = '" + Main.serverId + "'");
+                    + account + "' AND NOT server = '" + Config.INSTANCE.getSERVER_ID() + "'");
             ResultSet RS = result.resultSet;
             while (RS.next()) {
                 servers += (servers.isEmpty() ? RS.getInt("server") : ","

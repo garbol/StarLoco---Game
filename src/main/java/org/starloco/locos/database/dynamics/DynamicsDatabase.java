@@ -7,6 +7,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.LoggerFactory;
 import org.starloco.locos.database.Database;
 import org.starloco.locos.database.dynamics.data.*;
+import org.starloco.locos.kernel.Config;
 import org.starloco.locos.kernel.Main;
 
 public class DynamicsDatabase {
@@ -121,11 +122,11 @@ public class DynamicsDatabase {
 
             HikariConfig config = new HikariConfig();
             config.setDataSourceClassName("org.mariadb.jdbc.MySQLDataSource");
-            config.addDataSourceProperty("serverName", Main.hostDB);
-            config.addDataSourceProperty("port", Main.portDB);
-            config.addDataSourceProperty("databaseName", Main.nameDB);
-            config.addDataSourceProperty("user", Main.userDB);
-            config.addDataSourceProperty("password", Main.passDB);
+            config.addDataSourceProperty("serverName", Config.INSTANCE.getHostDB());
+            config.addDataSourceProperty("port", Config.INSTANCE.getPortDB());
+            config.addDataSourceProperty("databaseName", Config.INSTANCE.getNameDB());
+            config.addDataSourceProperty("user", Config.INSTANCE.getUserDB());
+            config.addDataSourceProperty("password", Config.INSTANCE.getPassDB());
             config.setAutoCommit(true); // AutoCommit, c'est cool
             config.setMaximumPoolSize(10);
             config.setMinimumIdle(1);
@@ -133,7 +134,7 @@ public class DynamicsDatabase {
 
             if (!Database.tryConnection(this.dataSource)) {
                 logger.error("Please verify your username and password and database connection");
-                Main.stop("try database connection failed");
+                Main.INSTANCE.stop("try database connection failed");
                 return false;
             }
 

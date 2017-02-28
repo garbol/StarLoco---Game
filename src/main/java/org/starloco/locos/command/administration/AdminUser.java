@@ -63,7 +63,7 @@ public abstract class AdminUser {
                     SocketManager.GAME_SEND_Im_PACKET_TO_ALL("115;" + time + " minute");
                 else
                     SocketManager.GAME_SEND_Im_PACKET_TO_ALL("115;" + time + " minutes");
-                if (time <= 0) Main.stop("Shutdown by an administrator");
+                if (time <= 0) Main.INSTANCE.stop("Shutdown by an administrator");
             }
         };
         return new Timer(60000, action);

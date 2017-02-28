@@ -27,7 +27,7 @@ public class WorldSave extends Updatable {
     @Override
     public void update() {
         if(this.verify())
-            if (!Main.isSaving) {
+            if (!Config.INSTANCE.isSaving()) {
                 thread = new Thread(() -> WorldSave.cast(1));
                 thread.setName(WorldSave.class.getName());
                 thread.setDaemon(true);
@@ -41,7 +41,7 @@ public class WorldSave extends Updatable {
         try {
             World.world.logger.debug("Starting the save of the world..");
             SocketManager.GAME_SEND_Im_PACKET_TO_ALL("1164;");
-            Main.isSaving = true;
+            Config.INSTANCE.setSaving(true);
 
             /** Save of data **/
             World.world.logger.info("-> of accounts.");
@@ -99,7 +99,7 @@ public class WorldSave extends Updatable {
             }
 
             /*World.world.logger.info("-> of group-monsters.");
-            if(Config.getInstance().HEROIC) {
+            if(Config.INSTANCE.getHEROIC) {
                 for (GameMap map : World.world.getMaps())
                     map.getMobGroups().values().stream()
                             .filter(group -> !group.getObjects().isEmpty())
@@ -118,9 +118,9 @@ public class WorldSave extends Updatable {
                 WorldSave.cast(trys + 1);
                 return;
             }
-            Main.isSaving = false;
+            Config.INSTANCE.setSaving(false);
         } finally {
-            Main.isSaving = false;
+            Config.INSTANCE.setSaving(false);
         }
 
         if(trys != 0) GameServer.setState(1);

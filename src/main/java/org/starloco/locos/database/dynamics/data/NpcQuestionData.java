@@ -61,7 +61,7 @@ public class NpcQuestionData extends AbstractDAO<NpcQuestion> {
             }
         } catch (SQLException e) {
             super.sendError("Npc_questionData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }

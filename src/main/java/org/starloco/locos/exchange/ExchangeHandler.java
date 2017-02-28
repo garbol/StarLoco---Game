@@ -12,7 +12,7 @@ public class ExchangeHandler extends IoHandlerAdapter {
 
     @Override
     public void sessionCreated(IoSession arg0) throws Exception {
-        Main.exchangeClient.setIoSession(arg0);
+        Main.INSTANCE.getExchangeClient().setIoSession(arg0);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ExchangeHandler extends IoHandlerAdapter {
 
     @Override
     public void sessionClosed(IoSession arg0) throws Exception {
-        Main.exchangeClient.restart();
+        Main.INSTANCE.getExchangeClient().restart();
     }
 
     @Override

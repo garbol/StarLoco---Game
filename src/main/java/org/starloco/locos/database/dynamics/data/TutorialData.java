@@ -40,7 +40,7 @@ public class TutorialData extends AbstractDAO<Tutorial> {
             }
         } catch (SQLException e) {
             super.sendError("TutorielData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }

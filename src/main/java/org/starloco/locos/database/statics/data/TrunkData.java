@@ -81,7 +81,7 @@ public class TrunkData extends AbstractDAO<Trunk> {
                 guid = RS.getInt("max") + 1;
         } catch (SQLException e) {
             super.sendError("CoffreData getNextId", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }

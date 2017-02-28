@@ -75,9 +75,9 @@ public class CommandAdmin extends AdminUser {
 
     public void command(String command, String[] infos, String msg) {
         if (command.equalsIgnoreCase("LOG")) {
-            Main.modDebug = !Main.modDebug;
+            Config.INSTANCE.setDEBUG(!Config.INSTANCE.getDEBUG());
             this.sendMessage("Les logs console sont : "
-                    + (Main.modDebug ? "active" : "disable"));
+                    + (Config.INSTANCE.getDEBUG() ? "active" : "disable"));
             if(infos.length > 1) {
                 EventManager.getInstance().startNewEvent();
             }
@@ -254,8 +254,8 @@ public class CommandAdmin extends AdminUser {
                 this.sendMessage(mess);
             }
 
-            if (Main.gameServer.getClients().size() - 30 > 0) {
-                mess = "Et " + (Main.gameServer.getClients().size() - 30)
+            if (Main.INSTANCE.getGameServer().getClients().size() - 30 > 0) {
+                mess = "Et " + (Main.INSTANCE.getGameServer().getClients().size() - 30)
                         + " autres personnages";
                 this.sendMessage(mess);
             }
@@ -265,7 +265,7 @@ public class CommandAdmin extends AdminUser {
         } else if (command.equalsIgnoreCase("WHOALL")) {
             String mess = "\n<u>Liste des joueurs en ligne :</u>";
             this.sendMessage(mess);
-            for (GameClient client : Main.gameServer.getClients()) {
+            for (GameClient client : Main.INSTANCE.getGameServer().getClients()) {
                 Player player = client.getPlayer();
 
                 if (player == null)
@@ -290,7 +290,7 @@ public class CommandAdmin extends AdminUser {
         } else if (command.equalsIgnoreCase("WHOFIGHT")) {
             String mess = "";
             this.sendMessage("\n<u>Liste des joueurs en ligne et en combat :</u>");
-            for (GameClient client : Main.gameServer.getClients()) {
+            for (GameClient client : Main.INSTANCE.getGameServer().getClients()) {
                 Player player = client.getPlayer();
 
                 if (player == null)
@@ -450,10 +450,10 @@ public class CommandAdmin extends AdminUser {
                 // ok
             }
             if (i == 0) {
-                Main.mapAsBlocked = false;
+                Main.INSTANCE.setMapAsBlocked(false);
                 this.sendMessage("Map deblocke.");
             } else if (i == 1) {
-                Main.mapAsBlocked = true;
+                Main.INSTANCE.setMapAsBlocked(true);
                 this.sendMessage("Map blocke.");
             } else {
                 this.sendMessage("Aucune information.");
@@ -467,7 +467,7 @@ public class CommandAdmin extends AdminUser {
                 // ok
             }
             if (i == 0) {
-                Main.fightAsBlocked = false;
+                Main.INSTANCE.setFightAsBlocked(false);
                 for(Player player : World.world.getOnlinePlayers())
                     player.sendServerMessage(Lang.get(player, 15));
                 this.sendMessage("Les combats ont etes debloques.");
@@ -881,7 +881,7 @@ public class CommandAdmin extends AdminUser {
                     gc.kick();
                 }
             }
-            Main.exchangeClient.send("SB" + IP);
+            Main.INSTANCE.getExchangeClient().send("SB" + IP);
             if (Database.getStatics().getBanIpData().add(IP))
                 this.sendMessage("L'IP "
                         + IP + " a ete banni.");
@@ -925,7 +925,7 @@ public class CommandAdmin extends AdminUser {
                     gc.kick();
                 }
             }
-            Main.exchangeClient.send("SB" + IP);
+            Main.INSTANCE.getExchangeClient().send("SB" + IP);
             if (Database.getStatics().getBanIpData().add(IP))
                 this.sendMessage("L'IP "
                         + IP + " a ete banni.");
@@ -1053,10 +1053,10 @@ public class CommandAdmin extends AdminUser {
             }
 
             if (i == 0) {
-                Main.tradeAsBlocked = false;
+                Main.INSTANCE.setTradeAsBlocked(false);
                 this.sendMessage("Les échanges ont été débloqués.");
             } else if (i == 1) {
-                Main.tradeAsBlocked = true;
+                Main.INSTANCE.setTradeAsBlocked(true);
                 this.sendMessage("Tous les échanges sont bloqués.");
             } else {
                 this.sendMessage("Aucune information.");
@@ -1469,7 +1469,7 @@ public class CommandAdmin extends AdminUser {
             this.sendMessage("Vous avez applique le trigger.");
             return;
         } else if (command.equalsIgnoreCase("INFOS")) {
-            long uptime = System.currentTimeMillis() - Config.getInstance().startTime;
+            long uptime = System.currentTimeMillis() - Config.INSTANCE.getStartTime();
             int day = (int) (uptime / (1000 * 3600 * 24));
             uptime %= (1000 * 3600 * 24);
             int hour = (int) (uptime / (1000 * 3600));
@@ -1479,9 +1479,9 @@ public class CommandAdmin extends AdminUser {
             int sec = (int) (uptime / (1000));
 
             String message = "\n<u><b>Global informations system of the StarLoco emulator :</b></u>\n\n<u>Uptime :</u> " + day + "j " + hour + "h " + min + "m " + sec + "s.\n";
-            message += "Online players         : " + Main.gameServer.getClients().size() + "\n";
-            message += "Unique online players  : " + Main.gameServer.getPlayersNumberByIp() + "\n";
-            message += "Online clients         : " + Main.gameServer.getClients().size() + "\n";
+            message += "Online players         : " + Main.INSTANCE.getGameServer().getClients().size() + "\n";
+            message += "Unique online players  : " + Main.INSTANCE.getGameServer().getPlayersNumberByIp() + "\n";
+            message += "Online clients         : " + Main.INSTANCE.getGameServer().getClients().size() + "\n";
 
 
             int mb = 1024 * 1024;
@@ -1555,7 +1555,7 @@ public class CommandAdmin extends AdminUser {
             return;
         } else if (command.equalsIgnoreCase("ENDFIGHTALL")) {
             try {
-                for (GameClient client : Main.gameServer.getClients()) {
+                for (GameClient client : Main.INSTANCE.getGameServer().getClients()) {
                     Player player = client.getPlayer();
                     if (player == null)
                         continue;
@@ -1642,14 +1642,14 @@ public class CommandAdmin extends AdminUser {
             return;
         } else if (command.equalsIgnoreCase("EXIT")) {
             this.sendMessage("Lancement du reboot.");
-            Main.runnables.add(() -> Main.stop("Exit by administrator"));
+            Main.INSTANCE.getRunnables().add(() -> Main.INSTANCE.stop("Exit by administrator"));
             return;
         } else  if (command.equalsIgnoreCase("SETMAX")) {
             short i = Short.parseShort(infos[1]);
             this.sendMessage("Le maximum de joueur a été fixer à : " + i);
             GameServer.MAX_PLAYERS = i;
             return;
-        } else if (command.equalsIgnoreCase("SAVE") && !Main.isSaving) {
+        } else if (command.equalsIgnoreCase("SAVE") && !Config.INSTANCE.isSaving()) {
             WorldSave.cast(1);
             String mess = "Sauvegarde lancee!";
             this.sendMessage(mess);
@@ -2115,7 +2115,7 @@ public class CommandAdmin extends AdminUser {
                         player.sendServerMessage(Lang.get(player, 14));
                         player.send("M13");
                     }
-                    Main.fightAsBlocked = true;
+                    Main.INSTANCE.setFightAsBlocked(true);
                 }
                 this.setTimer(createTimer(time));
                 this.getTimer().start();
@@ -2130,7 +2130,7 @@ public class CommandAdmin extends AdminUser {
                 this.setTimerStart(false);
                 for(Player player : World.world.getOnlinePlayers())
                     player.sendServerMessage(Lang.get(player, 15));
-                Main.fightAsBlocked = true;
+                Main.INSTANCE.setFightAsBlocked(true);
                 this.sendMessage("Reboot arrêté.");
             } else if (OffOn == 0 && !this.isTimerStart()) {
                 this.sendMessage("Aucun reboot n'est lancé.");
@@ -2187,7 +2187,7 @@ public class CommandAdmin extends AdminUser {
             return;
         } else if (command.equalsIgnoreCase("KICKALL")) {
             this.sendMessage("Tout le monde va etre kicke.");
-            Main.gameServer.kickAll(true);
+            Main.INSTANCE.getGameServer().kickAll(true);
             return;
         } else if (command.equalsIgnoreCase("RESET")) {
             Player perso = this.getPlayer();

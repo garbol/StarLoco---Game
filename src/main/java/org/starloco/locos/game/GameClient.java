@@ -122,7 +122,7 @@ public class GameClient {
             }
         }
 
-        if(Config.getInstance().AUTO_EVENT) {
+        if(Config.INSTANCE.getAUTO_EVENT()) {
             EventManager manager = EventManager.getInstance();
             if(manager.getState() == EventManager.State.STARTED) {
                 Event event = manager.getCurrentEvent();
@@ -502,7 +502,7 @@ public class GameClient {
         if (this.account.getPlayers().get(id) != null) {
             this.player = this.account.getPlayers().get(id);
             if (this.player != null) {
-                if(this.player.isDead() == 1 && Config.getInstance().HEROIC)
+                if(this.player.isDead() == 1 && Config.INSTANCE.getHEROIC())
                     this.getSession().write("BN");
                 else
                     this.player.OnJoinGame();
@@ -515,35 +515,16 @@ public class GameClient {
     private void sendTicket(String packet) {
         try {
             int id = Integer.parseInt(packet.substring(2));
-            this.account = Main.gameServer.getWaitingAccount(id);
+            this.account = Main.INSTANCE.getGameServer().getWaitingAccount(id);
 
             if (this.account == null) {
                 SocketManager.GAME_SEND_ATTRIBUTE_FAILED(this);
                 this.kick();
             } else {
-                Main.gameServer.deleteWaitingAccount(this.account);
+                Main.INSTANCE.getGameServer().deleteWaitingAccount(this.account);
 
                 String ip = this.session.getRemoteAddress().toString().substring(1).split(":")[0];
-
-                if (!ip.equals("127.0.0.1") && Config.getInstance().ONLY_LOCAL) {
-                    this.kick();
-                    return;
-                }
-
-                if(Main.serverId == 37 && !this.account.isSubscribeWithoutCondition()) {
-                    byte i = 0;
-                    for(GameClient client : Main.gameServer.getClients()) {
-                        if(client.getAccount() != null && client.getAccount().getCurrentIp() != null)
-                        if (client.getAccount().getCurrentIp().equals(ip)) {
-                            i++;
-                            if( i == 2) {
-                                this.kick();
-                                return;
-                            }
-                        }
-                    }
-                }
-
+                
                 if(this.account.getGameClient() != null)
                     this.account.getGameClient().kick();
 
@@ -553,7 +534,7 @@ public class GameClient {
 
                 if (Logging.USE_LOG) Logging.getInstance().write("AccountIpConnect", this.account.getName() + " > " + ip);
 
-                if(Config.getInstance().ENCRYPT_PACKET){
+                if(Config.INSTANCE.getENCRYPT_PACKET()){
                     //String key = generateKey();
                     this.getSession().write("ATK18fd8ad4a38cdd0432248a76f8f148ceb");
                     this.preparedKeys = World.world.getCryptManager().prepareKey("8fd8ad4a38cdd0432248a76f8f148ceb");
@@ -1466,7 +1447,7 @@ public class GameClient {
     private void accept() {
         ExchangeAction<?> checkExchangeAction = this.player.getExchangeAction();
 
-        if (Main.tradeAsBlocked || this.player.isDead() == 1 || checkExchangeAction == null || !(checkExchangeAction.getValue() instanceof Integer) || (checkExchangeAction.getType() != ExchangeAction.TRADING_WITH_PLAYER && checkExchangeAction.getType() != ExchangeAction.CRAFTING_SECURE_WITH))
+        if (Main.INSTANCE.getTradeAsBlocked() || this.player.isDead() == 1 || checkExchangeAction == null || !(checkExchangeAction.getValue() instanceof Integer) || (checkExchangeAction.getType() != ExchangeAction.TRADING_WITH_PLAYER && checkExchangeAction.getType() != ExchangeAction.CRAFTING_SECURE_WITH))
             return;
 
         ExchangeAction<Integer> exchangeAction = (ExchangeAction<Integer>) this.player.getExchangeAction();
@@ -2449,7 +2430,7 @@ public class GameClient {
             case ExchangeAction.IN_BANK:
                 switch (packet.charAt(2)) {
                     case 'G'://Kamas
-                        if (Main.tradeAsBlocked)
+                        if (Main.INSTANCE.getTradeAsBlocked())
                             return;
                         long kamas = 0;
                         try {
@@ -2484,7 +2465,7 @@ public class GameClient {
                         break;
 
                     case 'O'://Objet
-                        if (Main.tradeAsBlocked)
+                        if (Main.INSTANCE.getTradeAsBlocked())
                             return;
                         int guid = 0;
                         int qua = 0;
@@ -2524,7 +2505,7 @@ public class GameClient {
                 break;
 
             case ExchangeAction.IN_TRUNK:
-                if (Main.tradeAsBlocked)
+                if (Main.INSTANCE.getTradeAsBlocked())
                     return;
                 Trunk t = (Trunk) this.player.getExchangeAction().getValue();
 
@@ -3911,19 +3892,19 @@ public class GameClient {
                 break;
 
             case 900://Demande Defie
-                if (Main.fightAsBlocked)
+                if (Main.INSTANCE.getFightAsBlocked())
                     return;
                 gameAskDuel(packet);
                 break;
 
             case 901://Accepter Defie
-                if (Main.fightAsBlocked)
+                if (Main.INSTANCE.getFightAsBlocked())
                     return;
                 gameAcceptDuel(packet);
                 break;
 
             case 902://Refus/Anuler Defie
-                if (Main.fightAsBlocked)
+                if (Main.INSTANCE.getFightAsBlocked())
                     return;
                 gameCancelDuel(packet);
                 break;
@@ -3933,15 +3914,15 @@ public class GameClient {
                 break;
 
             case 906://Agresser
-                if (Main.fightAsBlocked)
+                if (Main.INSTANCE.getFightAsBlocked())
                     return;
                 gameAggro(packet);
                 break;
 
             case 909://Collector
-                if (Main.fightAsBlocked)
+                if (Main.INSTANCE.getFightAsBlocked())
                     return;
-                long calcul = System.currentTimeMillis() - Config.getInstance().startTime;
+                long calcul = System.currentTimeMillis() - Config.INSTANCE.getStartTime();
                 if(calcul < 600000) {
                     this.player.sendMessage("Vous devez attendre encore " + ((600000 - calcul) / 60000) + " minute(s).");
                     return;
@@ -3950,9 +3931,9 @@ public class GameClient {
                 break;
 
             case 912:// ataque Prisme
-                if (Main.fightAsBlocked)
+                if (Main.INSTANCE.getFightAsBlocked())
                     return;
-                calcul = System.currentTimeMillis() - Config.getInstance().startTime;
+                calcul = System.currentTimeMillis() - Config.INSTANCE.getStartTime();
                 if(calcul < 600000) {
                     this.player.sendMessage("Vous devez attendre encore " + ((600000 - calcul) / 60000) + " minute(s).");
                     return;
@@ -4020,7 +4001,7 @@ public class GameClient {
             }
             if (result == 0) {
                 if (targetCell.getObject() != null) {
-                    if (Main.modDebug) {
+                    if (Config.INSTANCE.getDEBUG()) {
                         World.world.logger.error("#1# Object Interactif : " + targetCell.getObject().getId());
                         World.world.logger.error("#1# On cellule : " + targetCell.getId());
                     }
@@ -4060,7 +4041,7 @@ public class GameClient {
                     this.player.setAway(false);
                 this.player.getCurMap().onPlayerArriveOnCell(this.player, this.player.getCurCell().getId());
                 if (targetCell.getObject() != null) {
-                    if (Main.modDebug) {
+                    if (Config.INSTANCE.getDEBUG()) {
                         World.world.logger.error("#3# Object Interactif : " + targetCell.getObject().getId());
                         World.world.logger.error("#3# On cellule : " + targetCell.getId());
                     }
@@ -4538,7 +4519,7 @@ public class GameClient {
                             this.player.setAway(false);
                         this.player.getCurMap().onPlayerArriveOnCell(this.player, this.player.getCurCell().getId());
                         if (targetCell.getObject() != null) {
-                            if (Main.modDebug) {
+                            if (Config.INSTANCE.getDEBUG()) {
                                 World.world.logger.error("#2# Object Interactif : " + targetCell.getObject().getId());
                                 World.world.logger.error("#2# On cellule : " + targetCell.getId());
                             }
@@ -6914,16 +6895,16 @@ public class GameClient {
         if (GA.actionId == 1)
             walk = true;
 
-        if (Main.modDebug)
+        if (Config.INSTANCE.getDEBUG())
             World.world.logger.error("Game > Create action id : " + GA.id);
-        if (Main.modDebug)
+        if (Config.INSTANCE.getDEBUG())
             World.world.logger.error("Game > Packet : " + GA.packet);
     }
 
     public synchronized void removeAction(GameAction GA) {
         if (GA.actionId == 1)
             walk = false;
-        if (Main.modDebug)
+        if (Config.INSTANCE.getDEBUG())
             World.world.logger.error("Game >  Delete action id : " + GA.id);
         actions.remove(GA.id);
 
@@ -7023,7 +7004,7 @@ public class GameClient {
 
     public void send(String packet) {
         try {
-            if (Config.getInstance().ENCRYPT_PACKET && this.preparedKeys != null)
+            if (Config.INSTANCE.getENCRYPT_PACKET() && this.preparedKeys != null)
                 packet = World.world.getCryptManager().cryptMessage(packet, this.preparedKeys);
             this.getSession().write(packet);
         } catch(Exception e) {

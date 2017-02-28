@@ -32,7 +32,7 @@ public class ExperienceData extends AbstractDAO<World.ExpLevel> {
             }
         } catch (SQLException e) {
             super.sendError("ExperienceData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }

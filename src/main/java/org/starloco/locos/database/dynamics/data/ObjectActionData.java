@@ -40,7 +40,7 @@ public class ObjectActionData extends AbstractDAO<ObjectAction> {
             }
         } catch (SQLException e) {
             super.sendError("ObjectsactionData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }

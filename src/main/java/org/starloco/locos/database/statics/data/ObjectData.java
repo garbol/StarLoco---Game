@@ -37,7 +37,7 @@ public class ObjectData extends AbstractDAO<GameObject> {
             }
         } catch (SQLException e) {
             super.sendError("ObjectData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }
@@ -62,7 +62,7 @@ public class ObjectData extends AbstractDAO<GameObject> {
             }
         } catch (SQLException e) {
             super.sendError("ObjectData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }

@@ -6,6 +6,7 @@ import org.starloco.locos.database.Database;
 import org.starloco.locos.game.GameClient;
 import org.starloco.locos.game.world.World;
 import org.starloco.locos.hdv.HdvEntry;
+import org.starloco.locos.kernel.Config;
 import org.starloco.locos.kernel.Main;
 import org.starloco.locos.object.GameObject;
 
@@ -288,14 +289,14 @@ public class Account {
     }
 
     public long getSubscribeRemaining() {
-        if (!Main.useSubscribe)
+        if (!Config.INSTANCE.getSubscription())
             return 525600L;
         long remaining = this.subscriber - System.currentTimeMillis();
         return remaining <= 0L ? 0L : remaining;
     }
 
     public boolean isSubscribe() {
-        if (!Main.useSubscribe)
+        if (!Config.INSTANCE.getSubscription())
             return true;
         long remaining = this.subscriber - System.currentTimeMillis();
         return remaining > 0L;

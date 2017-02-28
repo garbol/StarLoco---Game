@@ -32,7 +32,7 @@ public class DataType<T> {
                 final long count = data.count();
 
                 data.getQueue().put(count, this);
-                Main.exchangeClient.send("DI" + this.getType() + count);
+                Main.INSTANCE.getExchangeClient().send("DI" + this.getType() + count);
                 this.wait();
             }
         } catch (InterruptedException e) {

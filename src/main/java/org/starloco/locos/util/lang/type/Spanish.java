@@ -24,7 +24,7 @@ public class Spanish extends AbstractLang {
         this.sentences.add(index, "Lista del staff conectado :"); index++;
         this.sentences.add(index, "No hay ningún miembro del staff conectado."); index++;
         this.sentences.add(index, "No estás atascado..."); index++;
-        this.sentences.add(index, "<b>" + Config.getInstance().NAME + "</b>\nOnline desde : #1j #2h #3m #4s."); index++;
+        this.sentences.add(index, "<b>" + Config.INSTANCE.getNAME() + "</b>\nOnline desde : #1j #2h #3m #4s."); index++;
         this.sentences.add(index, "\nJugadores online : #1"); index++;
         this.sentences.add(index, "\nJugadores únicos conectados : #1"); index++;
         this.sentences.add(index, "\nMayoría en línea : #1"); index++;
@@ -34,7 +34,7 @@ public class Spanish extends AbstractLang {
                 + "<b>.staff</b> - Ver miembros del staff online.\n"
                 + "<b>.all</b>   - Envía un mensaje a todos los jugadores.\n"
                 + "<b>.noall</b> - No te permite recibir mensajes del canal General."); index++;
-        this.sentences.add(index, "Ahora puedes votar, pulsando <b><a href='" + Config.getInstance().url + "'>aquí</a></b>.");index++;
+        this.sentences.add(index, "Ahora puedes votar, pulsando <b><a href='" + Config.INSTANCE.getUrl() + "'>aquí</a></b>.");index++;
         this.sentences.add(index, "You can't fight until new order."); index++;
         this.sentences.add(index, "The reboot has been stopped. Now, you can fight.");
     }

@@ -82,7 +82,7 @@ public class SpellData extends AbstractDAO<Spell> {
                     monster.getGrades().values().forEach(Monster.MobGrade::refresh);
         } catch (SQLException e) {
             super.sendError("SortData load", e);
-            Main.stop("unknown");
+            Main.INSTANCE.stop("unknown");
         } finally {
             close(result);
         }
