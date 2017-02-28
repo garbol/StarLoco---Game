@@ -58,6 +58,9 @@ Pas de change-log antérieur à cette date.
 - Correction du craft sécurisé, lorsque les deux joueurs complète leurs ressources la recette n'échoue plus.
 - Correction du jet d'objet au sol, il est applicable sur toutes les tailles des cartes du jeu.
 - Ajout des potions d'oubli de sort et de statistique d'une guilde.
+
+28/02/2017
+- refonte de la config
 ========================================================================================================================
 
 A FAIRE :
