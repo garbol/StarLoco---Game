@@ -628,9 +628,9 @@ public class GameClient {
             return;
 
         switch (packet.charAt(2)) {
-            case '�':// Unknow
+            //case '�':// Unknow
 
-                break;
+            //    break;
             case '*'://Defaut
                 if (System.currentTimeMillis() - timeLastChatMsg < 500) {
                     this.send("M10");

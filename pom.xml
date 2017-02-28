@@ -34,7 +34,6 @@
                     </excludes>
                     <archive>
                         <manifest>
-                            <addClasspath>true</addClasspath>
                             <mainClass>org.starloco.locos.kernel.Main</mainClass>
                         </manifest>
                     </archive>
@@ -46,6 +45,7 @@
                 <configuration>
                     <archive>
                         <manifest>
+                            <addClasspath>true</addClasspath>
                             <mainClass>org.starloco.locos.kernel.Main</mainClass>
                         </manifest>
                     </archive>
@@ -67,7 +67,6 @@
                         </goals>
                         <configuration>
                             <sourceDirs>
-                                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
                                 <sourceDir>${project.basedir}/src/main/java</sourceDir>
                             </sourceDirs>
                         </configuration>
@@ -80,7 +79,6 @@
                         </goals>
                         <configuration>
                             <sourceDirs>
-                                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
                                 <sourceDir>${project.basedir}/src/main/java</sourceDir>
                             </sourceDirs>
                         </configuration>
@@ -110,7 +108,7 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <encoding>ISO-8859-1</encoding>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
 
@@ -182,14 +180,6 @@
         </dependency>
 
         <dependency>
-            <groupId>jep</groupId>
-            <artifactId>com.singularsys</artifactId>
-            <scope>system</scope>
-            <version>1.0</version>
-            <systemPath>${pom.basedir}/lib/jep.jar</systemPath>
-        </dependency>
-
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.14</version>
@@ -206,7 +196,20 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/jep/jep -->
+        <dependency>
+            <groupId>jep</groupId>
+            <artifactId>jep</artifactId>
+            <version>2.40</version>
+        </dependency>
+
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>opennms</id>
+            <url>http://repo.opennms.org/maven2/</url>
+        </repository>
+    </repositories>
 
 </project>

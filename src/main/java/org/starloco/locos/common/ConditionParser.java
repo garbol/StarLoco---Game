@@ -1,7 +1,8 @@
 package org.starloco.locos.common;
 
-import com.singularsys.jep.Jep;
-import com.singularsys.jep.JepException;
+import org.nfunk.jep.JEP;
+import org.nfunk.jep.Node;
+import org.nfunk.jep.ParseException;
 import org.starloco.locos.area.map.GameMap;
 import org.starloco.locos.client.Player;
 import org.starloco.locos.game.world.World.Couple;
@@ -25,7 +26,7 @@ public class ConditionParser {
             return false;
         if (perso == null)
             return false;
-        Jep jep = new Jep();
+        JEP jep = new JEP();
         req = req.replace("&", "&&").replace("=", "==").replace("|", "||").replace("!", "!=").replace("~", "==");
         if (req.contains("Sc"))
             return true;
@@ -102,14 +103,14 @@ public class ConditionParser {
             jep.addVariable("PSB", perso.getAccount().getPoints());//Points Boutique
             jep.addVariable("CF", (perso.getObjetByPos(Constant.ITEM_POS_PNJ_SUIVEUR) == null ? -1 : perso.getObjetByPos(Constant.ITEM_POS_PNJ_SUIVEUR).getTemplate().getId()));//Personnage suiveur
 
-            jep.parse(req);
-            Object result = jep.evaluate();
+            Node node = jep.parse(req);
+            Object result = jep.evaluate(node);
             boolean ok = false;
 
             if (result != null)
                 ok = Boolean.valueOf(result.toString());
             return ok;
-        } catch (JepException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return false;

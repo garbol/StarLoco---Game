@@ -1,7 +1,8 @@
 package org.starloco.locos.area.map.entity;
 
-import com.singularsys.jep.Jep;
-import com.singularsys.jep.JepException;
+import org.nfunk.jep.JEP;
+import org.nfunk.jep.Node;
+import org.nfunk.jep.ParseException;
 import org.starloco.locos.area.map.GameCase;
 import org.starloco.locos.area.map.GameMap;
 import org.starloco.locos.client.Player;
@@ -225,7 +226,7 @@ public class InteractiveDoor {
     private static class Condition {
 
         public static boolean isValid(Player player, GameCase gameCase, String request) {
-            Jep jep = new Jep();
+            JEP jep = new JEP();
             request = request.replace("&", "&&").replace("=", "==").replace("|", "||").replace("!", "!=").replace("~", "==");
             try {
                 // Item template cell
@@ -235,10 +236,10 @@ public class InteractiveDoor {
                 //Mob Group Cell
                 if(request.contains("MGC")) request = Condition.parseMGC(player, request);
                 //Parse request..
-                jep.parse(request);
-                Object result = jep.evaluate();
+                Node node = jep.parse(request);
+                Object result = jep.evaluate(node);
                 return result != null ? Boolean.valueOf(result.toString()) : false;
-            } catch (JepException e) {
+            } catch (ParseException e) {
                 e.printStackTrace();
             }
             return false;
